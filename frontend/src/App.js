@@ -25,7 +25,9 @@ const App = () => {
         <Switch>
           <Route path="/" exact>
             <h1>Home</h1>
-            <button onClick={handleLogout}>Logout</button>
+            <button type="submit" onClick={handleLogout}>
+              Logout
+            </button>
           </Route>
           <Route path="/auth" component={Auth} />
         </Switch>

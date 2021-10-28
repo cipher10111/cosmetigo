@@ -6,7 +6,11 @@
   "scripts": {
     "dev": "webpack --mode development --watch",
     "build": "webpack --mode production",
-    "prepare": "cd ../ && husky install ./frontend/.husky"
+    "prepare": "cd ../ && husky install ./frontend/.husky",
+    "lint:fix": "eslint src/*.js --fix",
+    "lint": "eslint src/*.js",
+    "test": "lint-staged",
+    "prettify": "prettier src/*.js --write"
   },
   "keywords": [],
   "author": "Ichan Kabir <ichankabir@gmail.com>",
@@ -41,5 +45,15 @@
     "redux": "^4.1.1",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.3.0"
+  },
+  "lint-staged": {
+    "*.(js|html|css)": [
+      "prettier --write",
+      "git add"
+    ],
+    ".js": [
+      "npm run lint:fix",
+      "npm run lint"
+    ]
   }
 }
