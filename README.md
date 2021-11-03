@@ -6,11 +6,11 @@
 > 1. download and install postgresql
 > 2. for linux **sudo -u postres psql** and for windows login with credentials
 > 3. CREATE DATABASE <DB_NAME>;
-> 4. CREATE USER <username> WITH PASSWORD '<password>';
-> 5. ALTER ROLE <username> SET client_encoding TO 'utf8';
-> 6. ALTER ROLE <username> SET default_transaction_isolation TO 'read committed';
-> 7. ALTER ROLE <username> SET timezone TO 'UTC';
-> 8. GRANT ALL PRIVILEGES ON DATABASE <DB_NAME> TO <username>;
+> 4. CREATE USER &lt;username&gt; WITH PASSWORD '<password>';
+> 5. ALTER ROLE &lt;username&gt; SET client_encoding TO 'utf8';
+> 6. ALTER ROLE &lt;username&gt; SET default_transaction_isolation TO 'read committed';
+> 7. ALTER ROLE &lt;username&gt; SET timezone TO 'UTC';
+> 8. GRANT ALL PRIVILEGES ON DATABASE <DB_NAME> TO &lt;username&gt;;
 ### Make sure you have already installed **python3** and **pip3**
 > 1. install virtualenv using **pip install virtualenv** 
 > 2. git clone https://github.com/cipher10111/cosmetigo.git
