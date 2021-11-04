@@ -1,16 +1,34 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import Box from '@material-ui/core/Box'
+import { Box, Typography } from '@material-ui/core'
 import LocalMallIcon from '@material-ui/icons/LocalMall'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import ContactSupportIcon from '@material-ui/icons/ContactSupport'
-import searchStyles from '../../assests/jss/searchResultStyles'
 import PersonIcon from '@material-ui/icons/Person'
 import LocationOnIcon from '@material-ui/icons/LocationOn'
 import PaymentIcon from '@material-ui/icons/Payment'
-import Typography from '@material-ui/core/Typography'
+import Divider from '@material-ui/core/Divider'
 
-const useStyles = makeStyles((theme) => searchStyles(theme))
+const useStyles = makeStyles((theme) => ({
+  gridClass: {
+    padding: '20px',
+    border: '1px solid #F8F8FF',
+    borderRadius: '5px',
+    background: '#FFFAF0',
+    textAlign: 'left',
+    fontSize: '16px',
+  },
+
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: 'bold',
+  },
+  muIcon: {
+    color: '#C70039 ',
+    fontSize: '17px',
+    marginTop: '30px',
+  },
+}))
 
 export default function MyOrderSideNav() {
   const classes = useStyles()
@@ -27,42 +45,48 @@ export default function MyOrderSideNav() {
   }
 
   return (
-    <>
+    <Box className={classes.gridClass}>
       <Box mb={2}>
         <Typography className={classes.heading}>Dashboard</Typography>
       </Box>
       <Box mb={2}>
         <p>
-          <LocalMallIcon />
+          <LocalMallIcon className={classes.muIcon} />
+          {'  '}
           Orders
         </p>
         <p>
-          <FavoriteIcon />
+          <FavoriteIcon className={classes.muIcon} />
+          {'  '}
           Wishlist
         </p>
         <p>
-          <ContactSupportIcon />
+          <ContactSupportIcon className={classes.muIcon} />
+          {'  '}
           Support
         </p>
       </Box>
-
-      <Box mb={2}>
+      <Divider />
+      <Box mb={2} mt={3}>
         <Typography className={classes.heading}>Account Setting</Typography>
       </Box>
       <Box mb={2}>
         <p>
-          <PersonIcon />
+          <PersonIcon className={classes.muIcon} />
+          {'  '}
           Profile
         </p>
         <p>
-          <LocationOnIcon />
+          <LocationOnIcon className={classes.muIcon} />
+          {'  '}
           Addresses
         </p>
         <p>
-          <PaymentIcon />
+          <PaymentIcon className={classes.muIcon} />
+          {'  '}
           Payment
         </p>
       </Box>
-    </>
+    </Box>
   )
 }
