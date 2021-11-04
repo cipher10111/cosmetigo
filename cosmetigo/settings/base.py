@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'mptt',
     'api.apps.ApiConfig',
     'frontend.apps.FrontendConfig',
-    'accounts.apps.AccountsConfig'
+    'accounts.apps.AccountsConfig',
+    'recommender.apps.RecommenderConfig'
 ]
 
 REST_FRAMEWORK = {
