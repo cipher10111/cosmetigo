@@ -6,7 +6,7 @@ from .recommender import getRecommendations
 import os
 
 
-class YourView(views.APIView):
+class RecommenderView(views.APIView):
     serializer_class = RecommenderSerializer
     
     def post(self, request):
