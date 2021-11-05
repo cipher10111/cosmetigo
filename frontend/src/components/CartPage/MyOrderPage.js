@@ -1,7 +1,5 @@
 import React from 'react'
-import Grid from '@material-ui/core/Grid'
-import Container from '@material-ui/core/Container'
-import Box from '@material-ui/core/Box'
+import { Container, Grid, Box } from '@material-ui/core'
 import MyOrderDetails from './MyOrderDetails'
 import MyOrderSideNav from './MyOrderSideNav'
 import MyOrderSideNavToggle from './MyOrderSideNavToggle'

@@ -14,25 +14,19 @@ import CartPage from './pages/CartPage'
 import OrderDetailPage from './components/CartPage/OrderDetailPage'
 import PaymentPage from './components/CartPage/PaymentPage'
 import MyOrderPage from './components/CartPage/MyOrderPage'
+import Home from './pages/Home'
 
 const App = () => {
   useEffect(() => {
     store.dispatch(fetchUser())
   })
-  const handleLogout = () => {
-    store.dispatch(logout())
-    document.location.href = '/auth'
-  }
 
   return (
     <Provider store={store}>
       <Router>
         <Switch>
           <Route path="/" exact>
-            <h1>Home</h1>
-            <button type="submit" onClick={handleLogout}>
-              Logout
-            </button>
+            <Home />
           </Route>
           <Route path="/auth" component={Auth} />
           <Route path="/search" component={SearchResult} />
