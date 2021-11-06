@@ -12,7 +12,6 @@ import ProductCard from '../components/Search/ProductCard'
 import ProductData from '../components/Search/productData'
 import SideNav from '../components/Search/SideNav'
 import SideNavToggle from '../components/Search/SideNavToggle'
-
 const useStyles = makeStyles((theme) => searchStyles(theme))
 
 function products(ProductData) {

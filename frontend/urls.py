@@ -9,6 +9,5 @@ urlpatterns = [
   path('order-details/', indexView),
   path('my-order/', indexView),
   path('payment/', indexView),
-  
-  
+  path('product/', indexView),
 ]
