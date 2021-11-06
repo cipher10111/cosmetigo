@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button'
 import SearchIcon from '@material-ui/icons/Search'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
+import Link from '@material-ui/core/Link'
 
 import store from '../redux/store'
 import { logout } from '../redux/actions/userActions'
@@ -110,7 +111,9 @@ export default function PrimarySearchAppBar() {
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="show 5 new notifications" color="inherit">
               <Badge badgeContent={5} color="secondary">
-                <ShoppingCartIcon />
+                <Link href="/cart" underline="none">
+                  <ShoppingCartIcon />
+                </Link>
               </Badge>
             </IconButton>
             <IconButton

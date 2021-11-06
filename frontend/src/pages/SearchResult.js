@@ -12,6 +12,7 @@ import ProductCard from '../components/Search/ProductCard'
 import ProductData from '../components/Search/productData'
 import SideNav from '../components/Search/SideNav'
 import SideNavToggle from '../components/Search/SideNavToggle'
+import Link from '@material-ui/core/Link'
 const useStyles = makeStyles((theme) => searchStyles(theme))
 
 function products(ProductData) {
@@ -124,12 +125,14 @@ function SearchResult(props) {
                     xs={12}
                     align={'center'}
                   >
-                    <ProductCard
-                      img={product.img}
-                      title={product.title}
-                      quant={product.quant}
-                      amount={product.amount}
-                    />
+                    <Link href="/product" underline="none">
+                      <ProductCard
+                        img={product.img}
+                        title={product.title}
+                        quant={product.quant}
+                        amount={product.amount}
+                      />
+                    </Link>
                   </Grid>
                 )
               })}

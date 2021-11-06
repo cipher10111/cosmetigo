@@ -1,7 +1,7 @@
 import React from 'react'
 import Brand from './Brand'
 import Brand_data from '../../assests/Home/Brand_name'
-import { Box, makeStyles } from '@material-ui/core'
+import { Box, makeStyles, Link } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,7 +14,11 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function products(iteam) {
-  return <Brand img={iteam.img} href={iteam.href} />
+  return (
+    <Link href="/search" underline="none">
+      <Brand img={iteam.img} href={iteam.href} />
+    </Link>
+  )
 }
 
 export default function App() {
