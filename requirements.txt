@@ -11,8 +11,6 @@ cryptography==35.0.0
 Django==3.2.8
 django-debug-toolbar==3.2.2
 django-js-asset==1.2.2
-django-mptt==0.13.4
-django-rest-knox==4.1.0
 djangorestframework==3.12.4
 flatbuffers==1.12
 gast==0.4.0

@@ -154,7 +154,7 @@ class ProductView(generics.ListAPIView):
                 )
                 product.save()
 
-                return Response(ProductTypeSerializer(product_type).data, status=status.HTTP_201_CREATED)
+                return Response(ProductSerializer(product_type).data, status=status.HTTP_201_CREATED)
         return Response({'Bad Request': 'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
 
 
