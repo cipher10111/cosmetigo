@@ -40,13 +40,11 @@ export default function ProductCard(props) {
           <Typography gutterBottom variant="p" component="h3">
             {props.title}
           </Typography>
-          <Typography gutterBottom variant="p" component="p">
-            {props.quant}
-          </Typography>
+
           <Typography gutterBottom variant="p" component="p">
             <Rating
               name="read-only"
-              defaultValue={3.5}
+              defaultValue={props.rating}
               precision={0.5}
               size="small"
               readOnly

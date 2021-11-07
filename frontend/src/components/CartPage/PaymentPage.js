@@ -13,8 +13,13 @@ const useStyles = makeStyles((theme) => ({
   gridClass: {
     background: 'white',
   },
+
+  marginTopClass: {
+    marginTop: '80px',
+    marginBottom: '80px',
+  },
   boxClass: {
-    width: '80%',
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-around',
@@ -25,7 +30,7 @@ function PaymentPage() {
   const classes = useStyles()
 
   return (
-    <Container>
+    <Container className={classes.marginTopClass}>
       <Grid item>
         <Grid container spacing={2}>
           <Box
@@ -53,35 +58,51 @@ function PaymentPage() {
             <Checkbox inputProps={{ 'aria-label': 'primary checkbox' }} />{' '}
             Credit/Debit Card
             <form noValidate autoComplete="off">
-              <Box xl={12} mt={2} mb={2} className={classes.boxClass}>
-                <TextField
-                  id="outlined-basic"
-                  label="Card Number"
-                  variant="outlined"
-                />
-              </Box>
-              <Box xl={12} mt={2} mb={2} className={classes.boxClass}>
-                <TextField
-                  id="outlined-basic"
-                  label="Exp Date"
-                  variant="outlined"
-                />
-              </Box>
-              <Box xl={12} mt={2} mb={2} className={classes.boxClass}>
-                <TextField
-                  id="outlined-basic"
-                  label="Name on Card"
-                  variant="outlined"
-                />
-              </Box>
-              <Box xl={12} mt={2} mb={2} className={classes.boxClass}>
-                <TextField id="outlined-basic" label="CVV" variant="outlined" />
-              </Box>
-              <Box xl={12} mt={2} mb={2} className={classes.boxClass}>
-                <Button variant="outlined" color="secondary">
-                  Submit
-                </Button>
-              </Box>
+              <Grid container spacing={2} align="center">
+                <Box mt={2} component={Grid} item lg={6} md={6} xs={12} sm={12}>
+                  <TextField
+                    id="outlined-basic"
+                    label="Card Number"
+                    variant="outlined"
+                  />
+                </Box>
+                <Box mt={2} component={Grid} item lg={6} md={6} xs={12} sm={12}>
+                  <TextField
+                    id="outlined-basic"
+                    label="Exp Date"
+                    variant="outlined"
+                  />
+                </Box>
+                <Box mt={2} component={Grid} item lg={6} md={6} xs={12} sm={12}>
+                  <TextField
+                    id="outlined-basic"
+                    label="Name on Card"
+                    variant="outlined"
+                  />
+                </Box>
+                <Box mt={2} component={Grid} item lg={6} md={6} xs={12} sm={12}>
+                  <TextField
+                    type="password"
+                    id="outlined-basic"
+                    label="CVV"
+                    variant="outlined"
+                  />
+                </Box>
+                <Box
+                  mt={2}
+                  component={Grid}
+                  item
+                  lg={12}
+                  md={12}
+                  xs={12}
+                  sm={12}
+                  align="center"
+                >
+                  <Button variant="outlined" color="secondary">
+                    Submit
+                  </Button>
+                </Box>
+              </Grid>
             </form>
             <p>
               <Checkbox inputProps={{ 'aria-label': 'primary checkbox' }} /> UPI

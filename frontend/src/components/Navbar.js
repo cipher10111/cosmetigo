@@ -90,7 +90,7 @@ export default function PrimarySearchAppBar() {
       >
         <Toolbar>
           <Typography className={classes.title} variant="h6" noWrap>
-            Cosmetogo
+            Cosmetigo
           </Typography>
           <div className={classes.grow} />
 

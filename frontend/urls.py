@@ -10,4 +10,6 @@ urlpatterns = [
   path('my-order/', indexView),
   path('payment/', indexView),
   path('product/', indexView),
+  path('my-account/', indexView),
+   
 ]

@@ -9,10 +9,11 @@ import Select from '@material-ui/core/Select'
 import searchStyles from '../assests/jss/searchResultStyles'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import ProductCard from '../components/Search/ProductCard'
-import ProductData from '../components/Search/productData'
+import ProductData from '../assests/product.js'
 import SideNav from '../components/Search/SideNav'
 import SideNavToggle from '../components/Search/SideNavToggle'
 import Link from '@material-ui/core/Link'
+
 const useStyles = makeStyles((theme) => searchStyles(theme))
 
 function products(ProductData) {
@@ -127,10 +128,10 @@ function SearchResult(props) {
                   >
                     <Link href="/product" underline="none">
                       <ProductCard
-                        img={product.img}
-                        title={product.title}
-                        quant={product.quant}
-                        amount={product.amount}
+                        img={product.image_link}
+                        title={product.display_name}
+                        amount={product.price}
+                        rating={product.rating}
                       />
                     </Link>
                   </Grid>

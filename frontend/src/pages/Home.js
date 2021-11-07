@@ -1,5 +1,4 @@
 import React from 'react'
-import Navbar from '../components/Navbar'
 import {
   Box,
   Grid,
@@ -11,7 +10,7 @@ import {
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import Newiteam from '../components/Home/Newiteam'
 import Typelist from '../components/Home/Typelist'
-import Footer from '../components/Footer'
+
 import Head from '../components/Home/Head'
 import Brandlist from '../components/Home/Brandlist'
 
@@ -34,7 +33,6 @@ const Home = (props) => {
   const classes = useStyles()
   return (
     <div>
-      <Navbar />
       <div className={classes.page}>
         <Head />
         <div>
@@ -52,7 +50,6 @@ const Home = (props) => {
           <Brandlist />
         </div>
       </div>
-      <Footer />
     </div>
   )
 }
