@@ -1,5 +1,5 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import { withStyles, makeStyles } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
 import Accordion from '@material-ui/core/Accordion'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
@@ -11,15 +11,51 @@ import Checkbox from '@material-ui/core/Checkbox'
 import Rating from '@material-ui/lab/Rating'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import searchStyles from '../../assests/jss/searchResultStyles'
+import Slider from '@material-ui/core/Slider'
 
 const useStyles = makeStyles((theme) => searchStyles(theme))
 
+const PrettoSlider = withStyles({
+  root: {
+    color: '#52af77',
+    height: 8,
+  },
+  thumb: {
+    height: 24,
+    width: 24,
+    backgroundColor: '#fff',
+    border: '2px solid currentColor',
+    marginTop: -8,
+    marginLeft: -12,
+    '&:focus, &:hover, &$active': {
+      boxShadow: 'inherit',
+    },
+  },
+  active: {},
+  valueLabel: {
+    left: 'calc(-50% + 4px)',
+  },
+  track: {
+    height: 8,
+    borderRadius: 4,
+  },
+  rail: {
+    height: 8,
+    borderRadius: 4,
+  },
+})(Slider)
+
 export default function SideNav() {
+  const [value, setValue] = React.useState(30)
   const classes = useStyles()
   const handleChange = (event) => {
     setState({
       sort: event.target.value,
     })
+  }
+
+  const handleChangeSlider = (event, newValue) => {
+    setValue(newValue)
   }
 
   const [checked, setChecked] = React.useState(true)
@@ -98,20 +134,11 @@ export default function SideNav() {
         </p>
       </Box>
       <Box mb={3}>
-        <TextField
-          align="left"
-          className={classes.inputBasic}
-          label="Low"
-          id="outlined-basic"
-          variant="outlined"
-        />
-        {'     '}
-
-        <TextField
-          className={classes.inputBasic}
-          label="High"
-          id="outlined-basic"
-          variant="outlined"
+        <PrettoSlider
+          valueLabelDisplay="auto"
+          aria-label="pretto slider"
+          defaultValue={20}
+          onChange={handleChangeSlider}
         />
       </Box>
       <Divider />

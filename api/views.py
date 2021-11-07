@@ -92,7 +92,8 @@ class ProductView(generics.ListAPIView):
     serializer_class = ProductSerializer
 
     def post(self, request, format=None):
-        serializer = self.serializer_clas
+        serializer = self.serializer_class(data=request.data)
+        print(serializer)
         if serializer.is_valid():
             product_id = serializer.data.get('id')
             display_name = serializer.data.get('display_name')
@@ -153,7 +154,7 @@ class ProductView(generics.ListAPIView):
                 )
                 product.save()
 
-                return Response(ProductSerializer(product_type).data, status=status.HTTP_201_CREATED)
+                return Response(ProductTypeSerializer(product_type).data, status=status.HTTP_201_CREATED)
         return Response({'Bad Request': 'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
 
 

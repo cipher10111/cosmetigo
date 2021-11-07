@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
     width: '300px',
     height: '120px',
     marginBottom: '1rem',
-    backgroundColor: '#D4ECDD',
   },
   details: {
     display: 'flex',
@@ -21,9 +20,6 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flex: '1 0 auto',
-  },
-  cover: {
-    width: '50%',
   },
 }))
 
@@ -45,7 +41,7 @@ export default function IteamType(props) {
           </Button>
         </CardContent>
       </div>
-      <CardMedia component="img" className={classes.cover} image={props.img} />
+      <CardMedia className={classes.cover} image={props.img} />
     </Card>
   )
 }

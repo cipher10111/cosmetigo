@@ -1,10 +1,16 @@
 import React from 'react'
-import Navbar from '../components/Navbar'
-import { Link, Button, Typography } from '@material-ui/core'
+import {
+  Box,
+  Grid,
+  Button,
+  Card,
+  Container,
+  Typography,
+} from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import Newiteam from '../components/Home/Newiteam'
 import Typelist from '../components/Home/Typelist'
-import Footer from '../components/Footer'
+
 import Head from '../components/Home/Head'
 import Brandlist from '../components/Home/Brandlist'
 
@@ -27,7 +33,6 @@ const Home = (props) => {
   const classes = useStyles()
   return (
     <div>
-      <Navbar />
       <div className={classes.page}>
         <Head />
         <div>
@@ -36,9 +41,7 @@ const Home = (props) => {
         <div>
           <div className={classes.newiteam}>
             <Typography variant="h5">New Products</Typography>
-            <Link href="/search" underline="none">
-              <Button variant="outlined">view all</Button>
-            </Link>
+            <Button>view all</Button>
           </div>
           <Newiteam />
         </div>
@@ -47,7 +50,6 @@ const Home = (props) => {
           <Brandlist />
         </div>
       </div>
-      <Footer />
     </div>
   )
 }

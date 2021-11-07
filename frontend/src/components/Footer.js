@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   brand: {
-    width: '90%',
+    width: '95%',
     [theme.breakpoints.up('md')]: {
       width: '35%',
     },
@@ -53,18 +53,17 @@ const useStyles = makeStyles((theme) => ({
 function Footer(props) {
   const classes = useStyles()
   return (
-    <Box component="footer" sx={{ bgcolor: '#FFD8CC', py: 4 }}>
+    <Box component="footer" sx={{ bgcolor: '#FFCCD2', py: 4 }}>
       <Container maxWidth="lg">
         <div className={classes.footer}>
           <div className={classes.brand}>
-            <Typography variant="h5" component="h3">
-              Cosmetigo{' '}
-            </Typography>
-            <Typography component="p">
-              Cosmetigo comes with a solution that brings its users a wonderful
-              experience of purchasing beauty products online by improving
-              customer retention and brand loyalty.
-            </Typography>
+            <h1>Cosmetigo</h1>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+            </p>
           </div>
           <div className={classes.address}>
             <h2>Contact</h2>

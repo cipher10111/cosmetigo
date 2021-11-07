@@ -4,8 +4,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import slugify
 from django.core.validators import MaxValueValidator, MinValueValidator
 
-from users.models import User
-
 # Create your models here.
 
 
@@ -86,7 +84,6 @@ class Product(models.Model):
         null=False,
         blank=False
     )
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     brand_name = models.CharField(
         verbose_name=_("Brand Display Name"),
         help_text=_("Required "),
@@ -116,7 +113,7 @@ class Product(models.Model):
         verbose_name=_("Price in INR"),
         help_text=_("Required"),
         validators=[
-            MinValueValidator(10)
+        MinValueValidator(10)
         ]
     )
     discounted_price = models.IntegerField(
@@ -133,7 +130,7 @@ class Product(models.Model):
     )
     gender = models.CharField(
         verbose_name=_("Select gender"),
-        max_length=1,
+        max_length=1, 
         choices=GENDER_CHOICES
     )
     description = models.TextField(
@@ -149,8 +146,8 @@ class Product(models.Model):
         default=_("")
     )
     slug = models.SlugField(
-        max_length=255,
-        unique=True,
+        max_length=255, 
+        unique=True, 
         blank=True,
         help_text=_("Leave blank for default value")
     )
@@ -167,7 +164,7 @@ class Product(models.Model):
         verbose_name = _("Product")
         verbose_name_plural = _("Products")
         ordering = ("-created_at",)
-
+  
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.display_name)
@@ -175,18 +172,6 @@ class Product(models.Model):
 
     def __str__(self):
         return self.display_name
-
-
-# class Comments(models.Model):
-#     product_id = models.ForeignKey(Product, on_delete=models.RESTRICT)
-#     total_rating = models.IntegerField()
-#     comment = ArrayField(
-
-#     )
-#     total_rated_user = models.IntegerField(
-#         default=0, 
-#         validators=[MinValueValidator(0)]
-#     )
 
 
 # class ProductDetailsKey(models.Model):
@@ -239,15 +224,3 @@ class ProductImage(models.Model):
         verbose_name_plural = _("Product Images")
 
 # class Review(models.Model):
-#     rating_average = models.FloatField(default=0)
-#     review_count = models.IntegerField(default=0)
-#     comment = models.TextField(blank=True, null=True)
-#     user = models.ForeignKey(User, on_delete=models.RESTRICT)
-
-#     @property
-#     def rating_average(self):
-#         return  self.reviews.aggregate(models.Avg('rating')).get('rating__avg')
-    
-#     @property
-#     def review_count(self):
-#         return self.reviews.count()

@@ -16,6 +16,9 @@ import PaymentPage from './components/CartPage/PaymentPage'
 import MyOrderPage from './components/CartPage/MyOrderPage'
 import Home from './pages/Home'
 import Productdetails from './pages/Productdetails'
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
+import MyAccount from './pages/MyAccount'
 
 const App = () => {
   useEffect(() => {
@@ -25,6 +28,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <Router>
+        <Navbar />
         <Switch>
           <Route path="/" exact>
             <Home />
@@ -36,7 +40,9 @@ const App = () => {
           <Route path="/order-details" component={OrderDetailPage} />
           <Route path="/my-order" component={MyOrderPage} />
           <Route path="/payment" component={PaymentPage} />
+          <Route path="/my-account" component={MyAccount} />
         </Switch>
+        <Footer />
       </Router>
     </Provider>
   )

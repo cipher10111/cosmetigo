@@ -2,12 +2,12 @@ const iteam_types = [
   {
     title: 'Skin care',
     subtitle: 'Organic',
-    img: 'https://i.ibb.co/DGqmHCk/skin.png',
+    img: 'https://picsum.photos/200/300',
   },
   {
     title: 'Hair care',
-    subtitle: 'Silk',
-    img: 'https://i.ibb.co/HGjH3yY/hair.png',
+    subtitle: 'Organic',
+    img: 'https://picsum.photos/200/300',
   },
   {
     title: 'Skin care',
