@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from datetime import datetime, timedelta
+from django.conf import settings
 from rest_framework_simplejwt.tokens import RefreshToken
 
 
@@ -31,8 +33,9 @@ class CustomAccountManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(_('email address'), unique=True)
-    username = models.CharField(max_length=150, unique=True)
+    email = models.EmailField(verbose_name=_(
+        'email address'), unique=True, max_length=255, db_index=True)
+    username = models.CharField(max_length=150, unique=True, db_index=True)
     mobile = models.CharField(max_length=10, unique=True)
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
@@ -43,17 +46,28 @@ class User(AbstractBaseUser, PermissionsMixin):
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True)
 
-    objects = CustomAccountManager()
-
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name', 'mobile']
 
-    def __str__(self):
-        return self.username
+    objects = CustomAccountManager()
 
-    def token(self):
-        refresh_token = RefreshToken.for_user(self)
+    def __str__(self):
+        return self.email
+
+    def tokens(self):
+        refresh = RefreshToken.for_user(self)
         return {
-            'refresh_token': str(refresh_token),
-            'access_token': str(refresh_token.access_token)
+            'refresh': str(refresh),
+            'access': str(refresh.access_token)
         }
+        # return self._generate_jwt_token()
+
+    # def _generate_jwt_token(self):
+    #     dt = datetime.now() + timedelta(days=60)
+
+    #     token = jwt.encode({
+    #         'id': self.pk,
+    #         'exp': int(dt.strftime('%s'))
+    #     }, settings.SECRET_KEY, algorithm='HS256')
+
+    #     return token

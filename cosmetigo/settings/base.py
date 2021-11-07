@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'knox',
+    'rest_framework_simplejwt.token_blacklist',
     'drf_yasg',
     'products.apps.ProductsConfig',
     'frontend.apps.FrontendConfig',
@@ -48,8 +48,22 @@ INSTALLED_APPS = [
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTAuthentication',),
-    'NON_FIELD_ERRORS_KEY': 'error'
+    'DEFAULT_AUTHENTICATION_CLASSES': ('users.jwt.JWTAuthentication',),
+    'NON_FIELD_ERRORS_KEY': 'error',
+    'EXCEPTION_HANDLER': 'cosmetigo.exceptions.core_exception_handler',
+}
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Basic': {
+            'type': 'basic'
+        },
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    }
 }
 
 MIDDLEWARE = [

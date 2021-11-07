@@ -2,8 +2,11 @@ from drf_yasg import openapi
 from rest_framework import generics, permissions, views, status
 from rest_framework.response import Response
 from django.contrib.sites.shortcuts import get_current_site
-from knox.models import AuthToken
 from django.urls import reverse
+
+from users.renderer import UserJSONRenderer
+
+from .permissions import IsOwner
 
 from .utils import Util
 from .serializers import EmailVerificationSerializer, UserSerializer, RegisterSerializer, LoginSerializer
@@ -17,6 +20,7 @@ from drf_yasg import openapi
 
 class RegisterView(generics.GenericAPIView):
     serializer_class = RegisterSerializer
+    renderer_classes = (UserJSONRenderer,)
 
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
@@ -44,18 +48,16 @@ class VerifyEmailView(views.APIView):
     serializer_class = EmailVerificationSerializer
 
     token_param_config = openapi.Parameter(
-        'token', in_ = openapi.IN_QUERY, description='Description', type=openapi.TYPE_STRING
+        'token', in_=openapi.IN_QUERY, description='Description', type=openapi.TYPE_STRING
     )
 
     @swagger_auto_schema(manual_parameters=[token_param_config])
     def get(self, request):
         token = request.GET.get('token')
-        print(token)
         try:
             payload = jwt.decode(token, settings.SECRET_KEY, "HS256")
-            print(payload)
             user = User.objects.get(id=payload['user_id'])
-            
+
             if not user.is_verified:
                 user.is_verified = True
                 user.save()
@@ -64,26 +66,50 @@ class VerifyEmailView(views.APIView):
         except jwt.ExpiredSignatureError:
             return Response({'error': 'Activation link expired'}, status=status.HTTP_400_BAD_REQUEST)
         except jwt.exceptions.DecodeError as err:
-            print(err)
             return Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class LoginView(generics.GenericAPIView):
     serializer_class = LoginSerializer
+    renderer_classes = (UserJSONRenderer,)
 
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        return Response({"userInfo": serializer.data}, status=status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
-
-class UserView(generics.RetrieveAPIView):
-    permission_classes = [
-        permissions.IsAuthenticated
-    ]
-
+class UserRetrieveUpdateAPIView(generics.RetrieveUpdateAPIView):
+    permissions = (permissions.IsAuthenticated,)
+    renderer_classes = (UserJSONRenderer,)
     serializer_class = UserSerializer
 
-    def get_object(self):
-        return self.request.user
+    def retrieve(self, request, *args, **kwargs):
+        serializer = self.serializer_class(request.user)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def update(self, request, *args, **kwargs):
+        # serializer_data = request.data.get('user', {})
+        serializer = self.serializer_class(
+            request.user, data=request.data, partial=True
+        )
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+# class LogoutView(generics.GenericAPIView):
+#     serializer_class = LogoutSerializer
+
+#     permission_classes = (permissions.IsAuthenticated,)
+
+#     def post(self, request):
+#         serializer = self.serializer_class(data=request.data)
+
+#         print("\n\nhi" + str(serializer) +"\n\n")
+
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+
+#         return Response(status=status.HTTP_204_NO_CONTENT)

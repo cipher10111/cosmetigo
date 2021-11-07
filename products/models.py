@@ -4,6 +4,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import slugify
 from django.core.validators import MaxValueValidator, MinValueValidator
 
+from users.models import User
+
 # Create your models here.
 
 
@@ -84,6 +86,7 @@ class Product(models.Model):
         null=False,
         blank=False
     )
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     brand_name = models.CharField(
         verbose_name=_("Brand Display Name"),
         help_text=_("Required "),
