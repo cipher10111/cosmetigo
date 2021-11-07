@@ -1,6 +1,6 @@
 import React from 'react'
-import { Box, Grid, Button, Card, Container } from '@material-ui/core'
-import { makeStyles, Link } from '@material-ui/core/styles'
+import { Box, Grid, Button, Card, Container, Link } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 
 const useStyles = makeStyles((theme) => ({
@@ -46,9 +46,11 @@ function Head(props) {
               enim ad minim veniam, quis nostrud exercitation ullamco
             </p>
             <div className={classes.margin}>
-              <Button variant="outlined" size="large">
-                Shop Now
-              </Button>
+              <Link href="/search" underline="none">
+                <Button variant="outlined" size="large">
+                  Shop Now
+                </Button>
+              </Link>
             </div>
           </Grid>
           <Grid className={classes.margin}>

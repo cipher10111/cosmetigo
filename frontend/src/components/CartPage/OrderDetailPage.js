@@ -192,14 +192,7 @@ function OrderDetailPage() {
             md={12}
             sm={12}
             xs={12}
-          >
-            <Button variant="outlined" color="primary">
-              Back to Cart
-            </Button>
-            <Button variant="contained" color="secondary">
-              Proceed to Checkout
-            </Button>
-          </Grid>
+          ></Grid>
         </Grid>
       </Grid>
     </Container>

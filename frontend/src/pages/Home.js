@@ -1,13 +1,6 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
-import {
-  Box,
-  Grid,
-  Button,
-  Card,
-  Container,
-  Typography,
-} from '@material-ui/core'
+import { Link, Button, Typography } from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import Newiteam from '../components/Home/Newiteam'
 import Typelist from '../components/Home/Typelist'
@@ -43,7 +36,9 @@ const Home = (props) => {
         <div>
           <div className={classes.newiteam}>
             <Typography variant="h5">New Products</Typography>
-            <Button variant="outlined">view all</Button>
+            <Link href="/search" underline="none">
+              <Button variant="outlined">view all</Button>
+            </Link>
           </div>
           <Newiteam />
         </div>

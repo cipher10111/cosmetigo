@@ -6,7 +6,8 @@ import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
 import InputBase from '@material-ui/core/InputBase'
 import Badge from '@material-ui/core/Badge'
-import Button from '@material-ui/core/Button'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
 import SearchIcon from '@material-ui/icons/Search'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
@@ -87,11 +88,36 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PrimarySearchAppBar() {
   const classes = useStyles()
-
   const handleLogout = () => {
     store.dispatch(logout())
     document.location.href = '/auth'
+    setAnchorEl(null)
   }
+  const [anchorEl, setAnchorEl] = React.useState(null)
+
+  const isMenuOpen = Boolean(anchorEl)
+  const handleProfileMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
+  const handleMenuClose = () => {
+    setAnchorEl(null)
+  }
+
+  const menuId = 'primary-search-account-menu'
+  const renderMenu = (
+    <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    >
+      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleLogout}>Log out</MenuItem>
+    </Menu>
+  )
 
   return (
     <div className={classes.navcontainer}>
@@ -128,15 +154,18 @@ export default function PrimarySearchAppBar() {
               </Badge>
             </IconButton>
             <IconButton
-              onClick={handleLogout}
               edge="end"
               aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
             >
               <AccountCircle className={classes.icon} />
             </IconButton>
           </div>
         </Toolbar>
       </AppBar>
+      {renderMenu}
     </div>
   )
 }

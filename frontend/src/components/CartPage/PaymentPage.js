@@ -102,15 +102,7 @@ function PaymentPage() {
             md={12}
             sm={12}
             xs={12}
-          >
-            <Button variant="outlined" color="primary">
-              Back to Checkout Details
-            </Button>
-
-            <Button variant="contained" color="secondary">
-              Review
-            </Button>
-          </Grid>
+          ></Grid>
         </Grid>
       </Grid>
     </Container>
