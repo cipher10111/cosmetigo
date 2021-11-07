@@ -1,5 +1,4 @@
 // styles here
-
 const globalStyles = (theme) => ({
   root: {},
 })

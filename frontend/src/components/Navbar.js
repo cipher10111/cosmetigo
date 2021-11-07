@@ -17,7 +17,7 @@ import { logout } from '../redux/actions/userActions'
 
 const useStyles = makeStyles((theme) => ({
   navcontainer: {
-    backgroundColor: '#FF5C58',
+    backgroundColor: '#F6F6F6',
   },
   grow: {
     flexGrow: 1,
@@ -27,6 +27,8 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     display: 'none',
+    color: '#000000',
+    fontWeight: 'bold',
     [theme.breakpoints.up('md')]: {
       padding: '0 5rem',
     },
@@ -37,9 +39,10 @@ const useStyles = makeStyles((theme) => ({
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.35),
+
+    backgroundColor: alpha(theme.palette.common.black, 0.05),
     '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.65),
+      backgroundColor: alpha(theme.palette.common.white, 0.85),
     },
     marginRight: theme.spacing(2),
     marginLeft: 0,
@@ -56,21 +59,29 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  inputRoot: {
-    color: 'inherit',
+    color: '#000000',
   },
   inputInput: {
+    color: '#000000',
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
       width: '20ch',
+      '&:focus': {
+        width: '25rem',
+      },
     },
+  },
+  inputRoot: {
+    color: 'inherit',
   },
   sectionDesktop: {
     display: 'flex',
+  },
+  icon: {
+    color: '#000000',
   },
 }))
 
@@ -89,8 +100,8 @@ export default function PrimarySearchAppBar() {
         className={(classes.growclasses, classes.navcontainer)}
       >
         <Toolbar>
-          <Typography className={classes.title} variant="h6" noWrap>
-            Cosmetogo
+          <Typography className={classes.title} variant="h6">
+            Cosmetigo
           </Typography>
           <div className={classes.grow} />
 
@@ -109,10 +120,10 @@ export default function PrimarySearchAppBar() {
           </div>
 
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 5 new notifications" color="inherit">
+            <IconButton aria-label="show 5 new notifications">
               <Badge badgeContent={5} color="secondary">
                 <Link href="/cart" underline="none">
-                  <ShoppingCartIcon />
+                  <ShoppingCartIcon className={classes.icon} />
                 </Link>
               </Badge>
             </IconButton>
@@ -121,7 +132,7 @@ export default function PrimarySearchAppBar() {
               edge="end"
               aria-label="account of current user"
             >
-              <AccountCircle />
+              <AccountCircle className={classes.icon} />
             </IconButton>
           </div>
         </Toolbar>

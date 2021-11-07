@@ -43,7 +43,7 @@ const Home = (props) => {
         <div>
           <div className={classes.newiteam}>
             <Typography variant="h5">New Products</Typography>
-            <Button>view all</Button>
+            <Button variant="outlined">view all</Button>
           </div>
           <Newiteam />
         </div>

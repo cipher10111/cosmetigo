@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box, Grid, Button, Card, Container } from '@material-ui/core'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
+import { makeStyles, Link } from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography'
 
 const useStyles = makeStyles((theme) => ({
   root: { margin: '1rem 0' },
@@ -8,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column-reverse',
     justifyContent: 'center',
+    backgroundColor: '#FFBCBC',
     [theme.breakpoints.up('sm')]: {
       flexDirection: 'row',
       justifyContent: 'space-around',
@@ -23,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   margin: {
     margin: '1rem 0',
     [theme.breakpoints.up('sm')]: {
-      margin: '3rem 0',
+      margin: '2rem 0',
     },
   },
 }))
@@ -35,14 +37,16 @@ function Head(props) {
       <Card>
         <Container className={classes.container}>
           <Grid className={classes.content}>
-            <h1 className={classes.margin}>20% off for your First shoping</h1>
+            <Typography className={classes.margin} variant="h4">
+              20% off for your First shoping
+            </Typography>
             <p className={classes.margin}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
               enim ad minim veniam, quis nostrud exercitation ullamco
             </p>
             <div className={classes.margin}>
-              <Button variant="contained" color="secondary" size="large">
+              <Button variant="outlined" size="large">
                 Shop Now
               </Button>
             </div>
