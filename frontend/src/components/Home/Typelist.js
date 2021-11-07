@@ -1,7 +1,7 @@
 import React from 'react'
 import Iteam from './IteamType'
 import iteam_data from '../../assests/Home/iteam_type_data'
-import { Grid, makeStyles } from '@material-ui/core'
+import { Grid, Link, makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,7 +13,11 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function Types(iteam) {
-  return <Iteam img={iteam.img} title={iteam.title} subtitle={iteam.subtitle} />
+  return (
+    <Link href="/search" underline="none">
+      <Iteam img={iteam.img} title={iteam.title} subtitle={iteam.subtitle} />
+    </Link>
+  )
 }
 
 export default function App() {

@@ -15,6 +15,7 @@ import OrderDetailPage from './components/CartPage/OrderDetailPage'
 import PaymentPage from './components/CartPage/PaymentPage'
 import MyOrderPage from './components/CartPage/MyOrderPage'
 import Home from './pages/Home'
+import Productdetails from './pages/Productdetails'
 
 const App = () => {
   useEffect(() => {
@@ -28,6 +29,7 @@ const App = () => {
           <Route path="/" exact>
             <Home />
           </Route>
+          <Route path="/product" component={Productdetails} />
           <Route path="/auth" component={Auth} />
           <Route path="/search" component={SearchResult} />
           <Route path="/cart" component={CartPage} />
