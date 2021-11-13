@@ -28,6 +28,7 @@ class Manager(BaseUserManager):
         other_fields.setdefault('is_superuser', True)
         
         return self.create_user(email, username, password, first_name, last_name, **other_fields)
+
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(verbose_name=_(
         'email address'), unique=True, max_length=255, db_index=True)

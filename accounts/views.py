@@ -67,3 +67,28 @@ class VerifyEmailAPIView(views.APIView):
             return Response({'error': 'Activation link expired'}, status=status.HTTP_400_BAD_REQUEST)
         except jwt.exceptions.DecodeError:
             return Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
+    def post(self, request, *args, **kwargs):
+        email = request.data['email']
+        user = User.objects.get(email=email)
+        
+        if user and not user.is_active:
+             return Response({"Account deactivated. please contact support"}, status=status.HTTP_403_FORBIDDEN)
+
+        if user and not user.is_verified:
+            token = RefreshToken.for_user(user).access_token
+            protocol = "https://" if request.is_secure() else "http://"
+            current_site = get_current_site(request).domain
+
+            redirect_url = protocol + \
+                str(current_site) + reverse("verify-email") + "?token=" + str(token)
+            body = "Hi " + user.username + \
+                " Use the link below to verify your email\n" + redirect_url
+
+            data = {
+                'to': user.email,
+                'body': body,
+                'subject': "Verify your email"
+            }
+            Utils.send_mail(data)
+            
+        return Response({"message": "Account activation link has been sent to " + email + ". Please verify your account"}, status=status.HTTP_200_OK)
