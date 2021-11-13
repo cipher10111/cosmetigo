@@ -5,6 +5,7 @@ from django.contrib.auth.models import (
     BaseUserManager
 )
 from django.utils.translation import ugettext_lazy as _
+from rest_framework_simplejwt.tokens import RefreshToken
 
 # Create your models here.
 
@@ -50,3 +51,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+    
+    def tokens(self):
+        refresh = RefreshToken.for_user(self)
+        return {
+            'refresh': str(refresh),
+            'access': str(refresh.access_token)
+        }

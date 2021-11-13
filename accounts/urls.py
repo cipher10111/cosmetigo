@@ -1,13 +1,13 @@
 from django.urls import path, include
 
 from .views import (
+  LoginAPIView,
   RegisterAPIView,
-  # ResendVerifyEmailAPIView, 
   VerifyEmailAPIView
 )
 
 urlpatterns = [
   path('register', RegisterAPIView.as_view(), name='register'),
   path('verify-email', VerifyEmailAPIView.as_view(), name="verify-email"),
-  # path('resend-verify-email', ResendVerifyEmailAPIView.as_view(), name="resend-verify-email"),
+  path('login', LoginAPIView.as_view(), name="login"),
 ]

@@ -4,16 +4,17 @@ from django.urls import reverse
 import jwt
 from rest_framework import (
     generics,
-    views,
     status
 )
 from rest_framework.response import Response
+from rest_framework.serializers import Serializer
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from .utils import Utils
 from .models import User
 from .serializers import (
     EmailVerificationSerializer,
+    LoginSerializer,
     RegisterSerializer
 )
 
@@ -49,7 +50,7 @@ class RegisterAPIView(generics.GenericAPIView):
         return Response({"message": "Registration completed successfully. Please verify your account"}, status=status.HTTP_201_CREATED)
 
 
-class VerifyEmailAPIView(views.APIView):
+class VerifyEmailAPIView(generics.GenericAPIView):
     serializer_class = EmailVerificationSerializer
 
     def get(self, request):
@@ -68,6 +69,9 @@ class VerifyEmailAPIView(views.APIView):
         except jwt.exceptions.DecodeError:
             return Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
     def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        
         email = request.data['email']
         user = User.objects.get(email=email)
         
@@ -92,3 +96,13 @@ class VerifyEmailAPIView(views.APIView):
             Utils.send_mail(data)
             
         return Response({"message": "Account activation link has been sent to " + email + ". Please verify your account"}, status=status.HTTP_200_OK)
+
+
+class LoginAPIView(generics.GenericAPIView):
+    serializer_class = LoginSerializer
+    
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        
+        return Response(serializer.data, status=status.HTTP_200_OK)
