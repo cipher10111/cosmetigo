@@ -36,7 +36,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=150, unique=True, db_index=True)
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
-    mobile = models.CharField(max_length=10)
+    mobile = models.CharField(max_length=10, unique=True, db_index=True, blank=True, null=True)
     is_mobile_verified = models.BooleanField(default=False)
     is_verified = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)

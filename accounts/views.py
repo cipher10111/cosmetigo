@@ -1,13 +1,14 @@
 from django.conf import settings
+from django.contrib.auth.models import Permission
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
 import jwt
 from rest_framework import (
     generics,
+    permissions,
     status
 )
 from rest_framework.response import Response
-from rest_framework.serializers import Serializer
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from .utils import Utils
@@ -15,7 +16,8 @@ from .models import User
 from .serializers import (
     EmailVerificationSerializer,
     LoginSerializer,
-    RegisterSerializer
+    RegisterSerializer,
+    UserSerializer
 )
 
 # Create your views here.
@@ -68,15 +70,16 @@ class VerifyEmailAPIView(generics.GenericAPIView):
             return Response({'error': 'Activation link expired'}, status=status.HTTP_400_BAD_REQUEST)
         except jwt.exceptions.DecodeError:
             return Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
+
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        
+
         email = request.data['email']
         user = User.objects.get(email=email)
-        
+
         if user and not user.is_active:
-             return Response({"Account deactivated. please contact support"}, status=status.HTTP_403_FORBIDDEN)
+            return Response({"Account deactivated. please contact support"}, status=status.HTTP_403_FORBIDDEN)
 
         if user and not user.is_verified:
             token = RefreshToken.for_user(user).access_token
@@ -84,7 +87,8 @@ class VerifyEmailAPIView(generics.GenericAPIView):
             current_site = get_current_site(request).domain
 
             redirect_url = protocol + \
-                str(current_site) + reverse("verify-email") + "?token=" + str(token)
+                str(current_site) + reverse("verify-email") + \
+                "?token=" + str(token)
             body = "Hi " + user.username + \
                 " Use the link below to verify your email\n" + redirect_url
 
@@ -94,15 +98,33 @@ class VerifyEmailAPIView(generics.GenericAPIView):
                 'subject': "Verify your email"
             }
             Utils.send_mail(data)
-            
+
         return Response({"message": "Account activation link has been sent to " + email + ". Please verify your account"}, status=status.HTTP_200_OK)
 
 
 class LoginAPIView(generics.GenericAPIView):
     serializer_class = LoginSerializer
-    
+
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class ProfileAPIView(generics.RetrieveUpdateAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = UserSerializer
+
+    def retrieve(self, request, *args, **kwargs):
+        serializer = self.serializer_class(request.user)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def update(self, request, *args, **kwargs):
+        serializer = self.serializer_class(
+            request.user, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
         return Response(serializer.data, status=status.HTTP_200_OK)
