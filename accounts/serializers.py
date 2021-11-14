@@ -119,7 +119,7 @@ class ResetPasswordRequestSerializer(serializers.Serializer):
         fields = ['email']
 
 
-class SetNewPasswordSerializer(serializers.Serializer):
+class SetNewPasswordSerializer(serializers.ModelSerializer):
     token = serializers.CharField(min_length=1, write_only=True)
     uidb64 = serializers.CharField(min_length=1, write_only=True)
 

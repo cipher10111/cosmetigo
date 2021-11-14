@@ -9,43 +9,94 @@ import {
   Button,
   Link,
 } from '@material-ui/core'
-import globalStyles from '../assests/jss/globalStyles'
+import { connect, useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import Swal from 'sweetalert2'
 import authStyles from '../assests/jss/authStyles'
-import { connect, useDispatch } from 'react-redux'
-import propTypes from 'prop-types'
-import Appbar from '../components/Appbar'
 import { register, signin } from '../redux/actions/userActions'
 
 const useStyles = makeStyles((theme) => authStyles(theme))
 
-const Auth = (props) => {
+const Auth = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
+  const history = useHistory()
   const [isLogIn, setLogIn] = useState(true)
+  const [error, setError] = useState({
+    username: '',
+    email: '',
+    password: '',
+    password2: '',
+    first_name: '',
+    last_name: '',
+  })
   const [user, setUser] = useState({
     username: '',
     email: '',
     password: '',
     password2: '',
+    first_name: '',
+    last_name: '',
   })
 
-  useEffect(() => {
-    console.log(props)
-  }, [])
+  const isAuth = useSelector((state) => state.auth.isAuth)
 
-  const handleFormSubmit = () => {
-    console.log('clicked')
-    if (isLogIn)
-      dispatch(signin({ username: user.username, password: user.password }))
-    else
+  useEffect(() => {
+    if (isAuth) history.push('/')
+  }, [isAuth])
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault()
+    if (isLogIn) {
+      dispatch(signin({ email: user.email, password: user.password }))
+    } else {
       dispatch(
         register({
+          first_name: user.first_name,
+          last_name: user.last_name,
           username: user.username,
           email: user.email,
           password: user.password,
         })
       )
+    }
   }
+
+  const errors = useSelector((state) => state.auth.error)
+  useEffect(() => {
+    setError((state) => ({
+      ...state,
+      username: errors?.username?.length && errors.username[0],
+      email: errors?.email?.length && errors.email[0],
+      password: errors?.password?.length && errors.password[0],
+      password2: errors?.password?.length && errors.password[0],
+      first_name: errors?.first_name?.length && errors.first_name[0],
+      last_name: errors?.last_name?.length && errors.last_name[0],
+    }))
+  }, [errors])
+
+  const errorDetail = useSelector((state) => state.auth.error?.error)
+  const message = useSelector((state) => state.auth?.message)
+
+  useEffect(() => {
+    if (errorDetail) {
+      Swal.fire({
+        icon: 'error',
+        title: errorDetail,
+        showConfirmButton: false,
+        timer: 1500,
+      })
+    } else if (message) {
+      Swal.fire({
+        icon: 'success',
+        title: message,
+        showConfirmButton: false,
+        timer: 1500,
+      })
+      document.location.href = '/auth'
+    }
+  }, [errorDetail, message])
 
   return (
     <div className={classes.root}>
@@ -68,36 +119,87 @@ const Auth = (props) => {
                 </Typography>
               </Grid>
               {!isLogIn && (
-                <Grid item align="center" xs={12}>
-                  <TextField
-                    label="Enter Email"
-                    type="text"
-                    fullWidth
-                    required
-                    variant="outlined"
-                    value={user.email}
-                    onChange={(e) =>
-                      setUser((state) => ({ ...state, email: e.target.value }))
-                    }
-                  />
-                </Grid>
+                <>
+                  <Grid item align="center" xs={6}>
+                    <TextField
+                      label="Enter first name"
+                      error={!!error.first_name}
+                      helperText={error.first_name}
+                      type="text"
+                      fullWidth
+                      required
+                      variant="outlined"
+                      value={user.first_name}
+                      onChange={(e) =>
+                        setUser((state) => ({
+                          ...state,
+                          first_name: e.target.value,
+                        }))
+                      }
+                    />
+                  </Grid>
+                  <Grid item align="center" xs={6}>
+                    <TextField
+                      label="Enter last name"
+                      error={!!error.last_name}
+                      helperText={error.last_name}
+                      type="text"
+                      fullWidth
+                      required
+                      variant="outlined"
+                      value={user.last_name}
+                      onChange={(e) =>
+                        setUser((state) => ({
+                          ...state,
+                          last_name: e.target.value,
+                        }))
+                      }
+                    />
+                  </Grid>
+                  <Grid item align="center" xs={12}>
+                    <TextField
+                      label="Enter Username"
+                      error={!!error.username}
+                      helperText={error.username}
+                      type="text"
+                      fullWidth
+                      required
+                      variant="outlined"
+                      value={user.username}
+                      onChange={(e) =>
+                        setUser((state) => ({
+                          ...state,
+                          username: e.target.value,
+                        }))
+                      }
+                    />
+                  </Grid>
+                </>
               )}
               <Grid item align="center" xs={12}>
                 <TextField
-                  label="Enter Username"
+                  label="Enter Email"
+                  error={!!error.email}
+                  helperText={error.email}
                   type="text"
                   fullWidth
                   required
                   variant="outlined"
-                  value={user.username}
+                  value={user.email}
                   onChange={(e) =>
-                    setUser((state) => ({ ...state, username: e.target.value }))
+                    setUser((state) => ({
+                      ...state,
+                      email: e.target.value,
+                    }))
                   }
                 />
               </Grid>
+
               <Grid item xs={12}>
                 <TextField
                   label="Password"
+                  error={!!error.password}
+                  helperText={error.password}
                   type="password"
                   fullWidth
                   required
@@ -112,6 +214,8 @@ const Auth = (props) => {
                 <Grid item xs={12}>
                   <TextField
                     label="Confirm Password"
+                    error={!!error.password}
+                    helperText={error.password}
                     type="password"
                     fullWidth
                     required
@@ -126,16 +230,6 @@ const Auth = (props) => {
                   />
                 </Grid>
               )}
-              {/* {loading && (
-								<Grid item align="center" xs={12}>
-									<Loading />
-								</Grid>
-							)}
-							{error && (
-								<Grid item align="center" xs={12}>
-									<CustomMessage variant="error">{error}</CustomMessage>
-								</Grid>
-							)} */}
               <Grid item xs={12}>
                 <Button
                   type="submit"
@@ -151,14 +245,14 @@ const Auth = (props) => {
               <Grid item xs={12}>
                 <Grid container justifyContent="space-between">
                   <Grid item>
-                    <Link href="#" variant="body2">
+                    <Link href="forgot-password" variant="body2">
                       Forgot password?
                     </Link>
                   </Grid>
                   <Grid item className={classes.link}>
                     <Typography
                       variant="body2"
-                      onClick={(e) => setLogIn((state) => !state)}
+                      onClick={() => setLogIn((state) => !state)}
                     >
                       {isLogIn
                         ? "Don't have an account?"
@@ -192,12 +286,12 @@ const Auth = (props) => {
   )
 }
 
-Auth.propTypes = {
-  userInfo: propTypes.object.isRequired,
-}
-
 const mapStateToProps = (state) => ({
-  userInfo: state.auth,
+  isAuth: state.auth.isAuth,
 })
+
+Auth.propTypes = {
+  isAuth: PropTypes.bool.isRequired,
+}
 
 export default connect(mapStateToProps)(Auth)

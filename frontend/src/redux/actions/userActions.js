@@ -9,19 +9,16 @@ import {
   USER_LOADING_REQUEST,
   USER_LOADING_SUCCESS,
   USER_LOADING_FAIL,
-  USER_LOGOUT,
 } from '../constants/userActionTypes'
 
-export const fetchUser = () => (dispatch, getState) => {
+export const checkAuth = () => (dispatch, getState) => {
   dispatch({ type: USER_LOADING_REQUEST })
-  const token = getState().auth.token
-  Axios.get('/api/auth/user', {
-    headers: { Authorization: `Token ${token}` },
-  })
+  const { refreshToken } = getState().auth
+  Axios.post('/api/auth/token/refresh', { refresh: refreshToken })
     .then((res) => {
       dispatch({ type: USER_LOADING_SUCCESS, payload: res.data })
     })
-    .catch((error) => {
+    .catch(() => {
       dispatch({ type: USER_LOADING_FAIL })
     })
 }
@@ -58,24 +55,4 @@ export const signin = (userInfo) => async (dispatch) => {
           : error.message,
     })
   }
-}
-
-export const logout = () => async (dispatch, getState) => {
-  const token = getState().auth.token || null
-  Axios.post('/api/auth/logout', null, {
-    headers: { Authorization: `Token ${token}` },
-  })
-    .then((res) => {
-      dispatch({ type: USER_LOGOUT })
-    })
-    .catch((error) => {
-      // dispatch({
-      // 	type: USER_LOGOUT_FAIL,
-      // 	payload:
-      // 		error.reponse && error.reponse.data.message
-      // ? error.reponse.data.message
-      // 			: error.message,
-      // });
-    })
-  document.location.href = '/auth'
 }

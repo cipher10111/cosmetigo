@@ -12,7 +12,8 @@ import {
 } from '../constants/userActionTypes'
 
 const initialState = {
-  token: localStorage.getItem('token'),
+  refreshToken: localStorage.getItem('refreshToken'),
+  accessToken: localStorage.getItem('accessToken'),
   error: {},
   isAuth: false,
   isLoading: false,
@@ -26,36 +27,61 @@ export default (state = initialState, action) => {
     case USER_LOADING_REQUEST:
       return { ...state, isLoading: true }
     case USER_LOADING_SUCCESS:
+      localStorage.setItem('refreshToken', action.payload.refresh)
+      localStorage.setItem('accessToken', action.payload.access)
       return {
         ...state,
+        refreshToken: action.payload.refresh,
+        accessToken: action.payload.access,
         isAuth: true,
         isLoading: false,
         userInfo: action.payload,
         error: null,
       }
     case USER_REGISTER_SUCCESS:
-    case USER_SIGNIN_SUCCESS:
-      localStorage.setItem('token', action.payload.token)
-      document.location.href = '/'
       return {
         ...state,
         ...action.payload,
+        isAuth: false,
+        isLoading: false,
+        error: null,
+      }
+    case USER_SIGNIN_SUCCESS:
+      localStorage.setItem('refreshToken', action.payload.tokens.refresh)
+      localStorage.setItem('accessToken', action.payload.tokens.access)
+      // document.location.href = '/';
+      return {
+        ...state,
+        refreshToken: action.payload.tokens.refresh,
+        accessToken: action.payload.tokens.access,
         isAuth: true,
         isLoading: false,
         error: null,
       }
-    case USER_LOADING_FAIL:
     case USER_SIGNIN_FAIL:
     case USER_REGISTER_FAIL:
+    case USER_LOADING_FAIL:
+      // localStorage.removeItem('refreshToken');
+      // localStorage.removeItem('accessToken');
+      // return {
+      //   ...state,
+      //   refreshToken: null,
+      //   accessToken: null,
+      //   userInfo: {},
+      //   isAuth: false,
+      //   isLoading: false,
+      //   error: action.payload,
+      // };
+      return state
     case USER_LOGOUT:
-      localStorage.removeItem('token')
+      localStorage.removeItem('refreshToken')
+      localStorage.removeItem('accessToken')
       return {
         ...state,
-        token: null,
-        userInfo: {},
-        isAuth: false,
+        refreshToken: null,
+        accessToken: null,
         isLoading: false,
-        error: action.payload,
+        error: null,
       }
     default:
       return state
