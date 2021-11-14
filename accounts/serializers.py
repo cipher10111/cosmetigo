@@ -1,4 +1,7 @@
 from django.contrib.auth import authenticate
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.utils.encoding import force_str
+from django.utils.http import urlsafe_base64_decode
 from rest_framework import serializers
 from rest_framework.exceptions import AuthenticationFailed, ValidationError
 
@@ -96,10 +99,10 @@ class UserSerializer(serializers.ModelSerializer):
         def update(self, user, validated_data):
             password = validated_data.pop("password", None)
             mobile = validated_data.get("mobile", None)
-            
+
             if mobile and mobile != user.mobile and user.is_mobile_verified:
                 setattr(user, "is_mobile_verified", False)
-            
+
             for (key, value) in validated_data.items():
                 setattr(user, key, value)
 
@@ -107,3 +110,42 @@ class UserSerializer(serializers.ModelSerializer):
                 user.set_password(password)
             user.save()
             return user
+
+
+class ResetPasswordRequestSerializer(serializers.Serializer):
+    email = serializers.EmailField(min_length=3)
+
+    class Meta:
+        fields = ['email']
+
+
+class SetNewPasswordSerializer(serializers.Serializer):
+    token = serializers.CharField(min_length=1, write_only=True)
+    uidb64 = serializers.CharField(min_length=1, write_only=True)
+
+    class Meta:
+        model = User
+        fields = ["password", "token", "uidb64"]
+
+    def validate(self, data):
+        try:
+            password = data.get("password", None)
+            token = data.get("token", None)
+            uidb64 = data.get("uidb64", None)
+
+            user_id = force_str(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(id=user_id)
+
+            if not PasswordResetTokenGenerator().check_token(user, token):
+                raise AuthenticationFailed({
+                    "error": "Password reset link is invalid"
+                }, 401)
+
+            user.set_password(password)
+            user.save()
+
+            return user
+        except Exception:
+            raise AuthenticationFailed({
+                "error": "Password reset link is invalid"
+            }, 401)
