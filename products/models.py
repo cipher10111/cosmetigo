@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class Category(models.Model):
-    id = models.IntegerField(primary_key=True, editable=True)
+    id = models.AutoField(primary_key=True)
     category_name = models.CharField(
         verbose_name=_("Category Name"),
         help_text=_("Required and unique"),
@@ -31,7 +31,7 @@ class Category(models.Model):
         return self.category_name
 
 class ProductType(models.Model):
-    id = models.IntegerField(primary_key=True, editable=True)
+    id = models.AutoField(primary_key=True)
     type_name = models.CharField(
         max_length=500,
         verbose_name=_("Type Name"),
@@ -72,11 +72,11 @@ class ProductType(models.Model):
 class Product(models.Model):
     GENDER_CHOICES = (
         ('M', 'Men'),
-        ('F', 'Women'),
+        ('W', 'Women'),
         ('U', 'Unisex')
     )
 
-    id = models.IntegerField(primary_key=True, editable=True)
+    id = models.AutoField(primary_key=True)
     display_name = models.TextField(
         verbose_name=_("Product Display Name"),
         help_text=_("Required "),
@@ -85,7 +85,7 @@ class Product(models.Model):
         blank=False
     )
     brand_name = models.CharField(
-        verbose_name=_("Brand Display Name"),
+        verbose_name=_("Brand Name"),
         help_text=_("Required "),
         null=False,
         blank=False,
@@ -128,7 +128,7 @@ class Product(models.Model):
         ]
     )
     gender = models.CharField(
-        verbose_name=_("Select gender"),
+        verbose_name=_("Gender"),
         max_length=1,
         choices=GENDER_CHOICES
     )
@@ -151,8 +151,8 @@ class Product(models.Model):
         help_text=_("Leave blank for default value")
     )
     is_product_in_dataset = models.BooleanField(default=False)
-    category = models.ForeignKey(Category, on_delete=models.RESTRICT)
-    product_type = models.ForeignKey(ProductType, on_delete=models.RESTRICT)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    product_type = models.ForeignKey(ProductType, on_delete=models.CASCADE)
     is_active = models.BooleanField(default=False)
     created_at = models.DateTimeField(
         verbose_name=_("Created at"), auto_now_add=True, editable=False)
