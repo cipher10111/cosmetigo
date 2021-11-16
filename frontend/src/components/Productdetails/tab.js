@@ -6,7 +6,7 @@ import {
   useGmailTabItemStyles,
 } from '@mui-treasury/styles/tabs'
 import Inbox from '@material-ui/icons/Inbox'
-import LocalOffer from '@material-ui/icons/LocalOffer'
+import LocalOfferIcon from '@material-ui/icons/LocalOffer'
 
 import Description from './Description'
 import Allreview from './Allreview'
@@ -38,7 +38,7 @@ const GmailTabsStyle = () => {
           classes={tabItem2Styles}
           disableTouchRipple
           label={'Reviews'}
-          icon={<LocalOffer />}
+          icon={<LocalOfferIcon />}
         />
       </Tabs>
       {tabIndex === 0 && <Description />}

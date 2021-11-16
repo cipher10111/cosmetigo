@@ -8,6 +8,7 @@ import CardMedia from '@material-ui/core/CardMedia'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
+import PropTypes from 'prop-types'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function Iteam(props) {
+const Product = ({ title, price, img }) => {
   const classes = useStyles()
 
   return (
@@ -36,21 +37,21 @@ export default function Iteam(props) {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image={props.img}
+          image={img}
           title="Contemplative Reptile"
         />
         <CardContent>
           <Typography gutterBottom component="h3">
-            {props.title}
+            {title}
           </Typography>
-          <Typography gutterBottom component="p">
-            {props.quant}
-          </Typography>
+          {/* <Typography gutterBottom component="p">
+            {quant}
+          </Typography> */}
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.grow}>
         <Typography gutterBottom component="p">
-          ₹ {props.amount}
+          ₹ {price}
         </Typography>
         <Button size="small" color="secondary">
           <AddShoppingCartIcon />
@@ -59,3 +60,12 @@ export default function Iteam(props) {
     </Card>
   )
 }
+
+Product.propTypes = {
+  title: PropTypes.string.isRequired,
+  // quant: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  img: PropTypes.string.isRequired,
+}
+
+export default Product

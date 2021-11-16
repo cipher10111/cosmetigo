@@ -1,4 +1,4 @@
-const Brand_types = [
+export default [
   {
     title: 'Skin care',
     img: 'https://picsum.photos/200/300',
@@ -25,5 +25,3 @@ const Brand_types = [
     href: '/products',
   },
 ]
-
-export default Brand_types

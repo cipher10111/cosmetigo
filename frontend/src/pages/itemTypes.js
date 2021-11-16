@@ -1,4 +1,4 @@
-const iteam_types = [
+export default [
   {
     title: 'Skin care',
     subtitle: 'Organic',
@@ -15,5 +15,3 @@ const iteam_types = [
     img: 'https://picsum.photos/200/300',
   },
 ]
-
-export default iteam_types

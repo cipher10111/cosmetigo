@@ -1,4 +1,4 @@
-const iteams = [
+export default [
   {
     img: 'https://picsum.photos/200/300',
     title: 'Premium body lotion',
@@ -48,4 +48,3 @@ const iteams = [
     amount: '300.00',
   },
 ]
-export default iteams

@@ -8,7 +8,7 @@ import InputBase from '@material-ui/core/InputBase'
 import Badge from '@material-ui/core/Badge'
 import Button from '@material-ui/core/Button'
 import SearchIcon from '@material-ui/icons/Search'
-import AccountCircle from '@material-ui/icons/AccountCircle'
+import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import Link from '@material-ui/core/Link'
 
@@ -120,7 +120,7 @@ export default function PrimarySearchAppBar() {
               edge="end"
               aria-label="account of current user"
             >
-              <AccountCircle />
+              <AccountCircleIcon />
             </IconButton>
           </div>
         </Toolbar>
