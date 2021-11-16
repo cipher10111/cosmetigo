@@ -17,14 +17,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 from .utils import Utils
 from .models import User
-from .serializers import (
-    EmailVerificationSerializer,
-    LoginSerializer,
-    RegisterSerializer,
-    ResetPasswordRequestSerializer,
-    SetNewPasswordSerializer,
-    UserSerializer
-)
+from .serializers import *
 
 # Create your views here.
 
@@ -189,3 +182,14 @@ class SetNewPasswordAPIView(generics.GenericAPIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         return Response({'success': True, 'message': 'Password has been reset'}, status=status.HTTP_200_OK)
+
+
+class GoogleAuthAPIView(generics.GenericAPIView):
+    serializer_class = GoogleAuthSerializer
+    
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = (serializer.validated_data)["token"]
+        
+        return Response(data, status=status.HTTP_200_OK)

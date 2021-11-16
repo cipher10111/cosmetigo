@@ -40,10 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'api.apps.ApiConfig',
     'frontend.apps.FrontendConfig',
     'accounts.apps.AccountsConfig',
-    'recommender.apps.RecommenderConfig'
+    'recommender.apps.RecommenderConfig',
+    'products.apps.ProductsConfig'
 ]
 
 REST_FRAMEWORK = {

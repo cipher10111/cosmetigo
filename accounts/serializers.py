@@ -4,7 +4,9 @@ from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 from rest_framework import serializers
 from rest_framework.exceptions import AuthenticationFailed, ValidationError
+import os
 
+from .utils import Utils
 from .models import User
 
 
@@ -149,3 +151,28 @@ class SetNewPasswordSerializer(serializers.ModelSerializer):
             raise AuthenticationFailed({
                 "error": "Password reset link is invalid"
             }, 401)
+
+
+class GoogleAuthSerializer(serializers.Serializer):
+    token = serializers.CharField()
+
+    def validate_token(self, token):
+        user_data = Utils.validate_google_auth_token(token)
+        
+        if user_data['aud'] != os.environ.get('GOOGLE_CLIENT_ID'):
+            raise AuthenticationFailed({
+                "error": "Something went wrong"
+            })
+            
+        try:
+            user_id = user_data["sub"]
+            email = user_data["email"]
+            name = user_data["name"]
+            provider = "google"
+
+            return Utils.register(provider=provider, user_id=user_id, email=email, name=name)
+        
+        except Exception:
+            raise serializers.ValidationError({
+                "error": "Invalid token. Please login again"
+            })

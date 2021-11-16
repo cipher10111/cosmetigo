@@ -6,9 +6,9 @@ from rest_framework import permissions
 urlpatterns = [
     path('', include('frontend.urls')),
     path('admin/', admin.site.urls),
-    path('api/', include('api.urls')),
     path('api/auth/', include('accounts.urls')),
     path('api/recommend', include('recommender.urls')),
+    path('api/products/', include('products.urls')),
 ]
 
 if settings.DEBUG:

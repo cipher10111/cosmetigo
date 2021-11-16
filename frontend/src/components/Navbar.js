@@ -13,7 +13,6 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import Link from '@material-ui/core/Link'
 
 import store from '../redux/store'
-import { logout } from '../redux/actions/userActions'
 
 const useStyles = makeStyles((theme) => ({
   navcontainer: {

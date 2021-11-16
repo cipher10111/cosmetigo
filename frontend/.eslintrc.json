@@ -25,6 +25,7 @@
             "vars": "all",
             "args": "after-used",
             "ignoreRestSiblings": false
-        }]
+        }],
+        "semi": [1, "always"]
     }
 }
