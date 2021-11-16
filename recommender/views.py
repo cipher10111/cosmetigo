@@ -1,4 +1,4 @@
-from rest_framework import serializers, views, status
+from rest_framework import generics, serializers, views, status
 from rest_framework.response import Response
 
 from .serializers import RecommenderSerializer
@@ -6,7 +6,7 @@ from .recommender import getRecommendations
 import os
 
 
-class RecommenderView(views.APIView):
+class RecommenderView(generics.GenericAPIView):
     serializer_class = RecommenderSerializer
     
     def post(self, request):

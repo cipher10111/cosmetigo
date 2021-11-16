@@ -18,13 +18,24 @@ class CreateCategorySerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    # category = CategorySerializer()
-    # product_type = ProductTypeSerializer()
-
     class Meta:
         model = Product
-        exclude = ('slug', )
+        # exclude = ('slug', )
+        fields = "__all__"
 
+class NewProductSerializer(serializers.Serializer):
+    count = serializers.IntegerField()
+    class Meta:
+        fields = ["product_count"]
+
+    def validate(self, data):
+        count = data.get("count", None)
+        
+        if not count:
+            raise serializers.ValidationError({
+                "error": "Count should be at least 1"
+            })
+        return count
 
 class CreateProductSerializer(serializers.ModelSerializer):
     class Meta:
