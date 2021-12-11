@@ -5,7 +5,8 @@
     },
     "extends": [
         "plugin:react/recommended",
-        "airbnb"
+        "eslint:recommended",
+        "plugin:prettier/recommended"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -21,11 +22,11 @@
         "react/jsx-filename-extension": [1, {
             "extensions": [".js", ".jsx"]
         }],
-        "no-unused-vars": ["error", {
+        "react/react-in-jsx-scope": "off",
+        "no-unused-vars": [1, {
             "vars": "all",
             "args": "after-used",
             "ignoreRestSiblings": false
-        }],
-        "semi": [1, "always"]
+        }]
     }
 }
