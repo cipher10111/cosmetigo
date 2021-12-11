@@ -1,69 +1,33 @@
-import React from 'react'
-import {
-  Container,
-  Grid,
-  Box,
-  Divider,
-  TextField,
-  Button,
-} from '@material-ui/core'
-import Avatar from '@material-ui/core/Avatar'
-import { makeStyles } from '@material-ui/core/styles'
+import React from "react";
+import { Container, Grid, Box, Divider, TextField, Button } from "@material-ui/core";
+import Avatar from "@material-ui/core/Avatar";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   boxClass: {
-    marginTop: '40px',
-  },
-}))
+    marginTop: "40px"
+  }
+}));
 
 export default function MyAccount() {
-  const classes = useStyles()
+  const classes = useStyles();
   return (
     <Container>
       <Grid item align="center">
         <Grid container>
           <Grid item xs={12} sm={12}>
             <Grid container spacing={2}>
-              <Box
-                component={Grid}
-                item
-                lg={12}
-                md={12}
-                xs={12}
-                sm={12}
-                align="center"
-              >
-                <Avatar
-                  alt="Remy Sharp"
-                  src="null"
-                  className={classes.boxClass}
-                />
+              <Box component={Grid} item lg={12} md={12} xs={12} sm={12} align="center">
+                <Avatar alt="Remy Sharp" src="null" className={classes.boxClass} />
                 <p>Customer Name</p>
                 <Divider />
               </Box>
 
-              <Box
-                component={Grid}
-                mb={5}
-                item
-                lg={12}
-                md={12}
-                xs={12}
-                sm={12}
-                align="left"
-              >
+              <Box component={Grid} mb={5} item lg={12} md={12} xs={12} sm={12} align="left">
                 <h3 className={classes.boxClass}>Personal Details:</h3>
                 <Divider />
                 <Grid container className={classes.boxClass} spacing={2}>
-                  <Grid
-                    item
-                    xl={4}
-                    lg={4}
-                    md={6}
-                    sm={6}
-                    xs={12}
-                    align={'center'}
-                  >
+                  <Grid item xl={4} lg={4} md={6} sm={6} xs={12} align={"center"}>
                     <TextField
                       required
                       id="standard-required"
@@ -71,15 +35,7 @@ export default function MyAccount() {
                       defaultValue="Monjul"
                     />
                   </Grid>
-                  <Grid
-                    item
-                    xl={4}
-                    lg={4}
-                    md={6}
-                    sm={6}
-                    xs={12}
-                    align={'center'}
-                  >
+                  <Grid item xl={4} lg={4} md={6} sm={6} xs={12} align={"center"}>
                     <TextField
                       required
                       id="standard-required"
@@ -87,15 +43,7 @@ export default function MyAccount() {
                       defaultValue="Boruah"
                     />
                   </Grid>
-                  <Grid
-                    item
-                    xl={4}
-                    lg={4}
-                    md={6}
-                    sm={6}
-                    xs={12}
-                    align={'center'}
-                  >
+                  <Grid item xl={4} lg={4} md={6} sm={6} xs={12} align={"center"}>
                     <TextField
                       required
                       id="standard-required"
@@ -103,15 +51,7 @@ export default function MyAccount() {
                       defaultValue="8822347692"
                     />
                   </Grid>
-                  <Grid
-                    item
-                    xl={4}
-                    lg={4}
-                    md={6}
-                    sm={6}
-                    xs={12}
-                    align={'center'}
-                  >
+                  <Grid item xl={4} lg={4} md={6} sm={6} xs={12} align={"center"}>
                     <TextField
                       required
                       id="standard-required"
@@ -119,15 +59,7 @@ export default function MyAccount() {
                       defaultValue="8822347692"
                     />
                   </Grid>
-                  <Grid
-                    item
-                    xl={4}
-                    lg={4}
-                    md={6}
-                    sm={6}
-                    xs={12}
-                    align={'center'}
-                  >
+                  <Grid item xl={4} lg={4} md={6} sm={6} xs={12} align={"center"}>
                     <TextField
                       required
                       id="standard-required"
@@ -135,15 +67,7 @@ export default function MyAccount() {
                       defaultValue="123455"
                     />
                   </Grid>
-                  <Grid
-                    item
-                    xl={4}
-                    lg={4}
-                    md={6}
-                    sm={6}
-                    xs={12}
-                    align={'center'}
-                  >
+                  <Grid item xl={4} lg={4} md={6} sm={6} xs={12} align={"center"}>
                     <TextField
                       required
                       id="standard-required"
@@ -151,15 +75,7 @@ export default function MyAccount() {
                       defaultValue="monjul@gmail.com"
                     />
                   </Grid>
-                  <Grid
-                    item
-                    xl={4}
-                    lg={4}
-                    md={6}
-                    sm={6}
-                    xs={12}
-                    align={'center'}
-                  >
+                  <Grid item xl={4} lg={4} md={6} sm={6} xs={12} align={"center"}>
                     <TextField
                       required
                       id="standard-required"
@@ -172,15 +88,7 @@ export default function MyAccount() {
                 <h3 className={classes.boxClass}>Address:</h3>
                 <Divider />
                 <Grid className={classes.boxClass} container spacing={2}>
-                  <Grid
-                    item
-                    xl={6}
-                    lg={6}
-                    md={6}
-                    sm={6}
-                    xs={12}
-                    align={'center'}
-                  >
+                  <Grid item xl={6} lg={6} md={6} sm={6} xs={12} align={"center"}>
                     <TextField
                       required
                       id="standard-required"
@@ -188,15 +96,7 @@ export default function MyAccount() {
                       defaultValue="Guwahati"
                     />
                   </Grid>
-                  <Grid
-                    item
-                    xl={6}
-                    lg={6}
-                    md={6}
-                    sm={6}
-                    xs={12}
-                    align={'center'}
-                  >
+                  <Grid item xl={6} lg={6} md={6} sm={6} xs={12} align={"center"}>
                     <TextField
                       required
                       id="standard-required"
@@ -209,15 +109,7 @@ export default function MyAccount() {
                 <h3 className={classes.boxClass}>Saved Cards:</h3>
                 <Divider />
                 <Grid className={classes.boxClass} container spacing={2}>
-                  <Grid
-                    item
-                    xl={6}
-                    lg={6}
-                    md={6}
-                    sm={6}
-                    xs={12}
-                    align={'center'}
-                  >
+                  <Grid item xl={6} lg={6} md={6} sm={6} xs={12} align={"center"}>
                     <TextField
                       required
                       id="standard-required"
@@ -225,15 +117,7 @@ export default function MyAccount() {
                       defaultValue="1234567"
                     />
                   </Grid>
-                  <Grid
-                    item
-                    xl={6}
-                    lg={6}
-                    md={6}
-                    sm={6}
-                    xs={12}
-                    align={'center'}
-                  >
+                  <Grid item xl={6} lg={6} md={6} sm={6} xs={12} align={"center"}>
                     <TextField
                       required
                       id="standard-required"
@@ -244,15 +128,7 @@ export default function MyAccount() {
                 </Grid>
 
                 <Grid className={classes.boxClass} container spacing={2}>
-                  <Grid
-                    item
-                    xl={12}
-                    lg={12}
-                    md={12}
-                    sm={12}
-                    xs={12}
-                    align="center"
-                  >
+                  <Grid item xl={12} lg={12} md={12} sm={12} xs={12} align="center">
                     <Button variant="outlined" color="primary">
                       Edit
                     </Button>
@@ -268,5 +144,5 @@ export default function MyAccount() {
         </Grid>
       </Grid>
     </Container>
-  )
+  );
 }

@@ -10,7 +10,8 @@
     "lint:fix": "eslint src/*.js --fix",
     "lint": "eslint src/*.js",
     "test": "lint-staged",
-    "prettify": "prettier src/*.js --write"
+    "prettify": "prettier src/*.js --write",
+    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
   },
   "keywords": [],
   "author": "Ichan Kabir <ichankabir@gmail.com>",
@@ -51,6 +52,12 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.3.0",
     "sweetalert2": "^11.1.10"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "lint-staged": {
     "*.(js|html|css)": [

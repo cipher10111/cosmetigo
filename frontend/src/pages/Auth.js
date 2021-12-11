@@ -1,55 +1,47 @@
-import React, { useState, useEffect } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import {
-  Grid,
-  Typography,
-  Divider,
-  Paper,
-  TextField,
-  Button,
-  Link,
-} from '@material-ui/core'
-import { connect, useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
-import PropTypes from 'prop-types'
-import Swal from 'sweetalert2'
-import authStyles from '../assests/jss/authStyles'
-import { register, signin } from '../redux/actions/userActions'
+import React, { useState, useEffect } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import { Grid, Typography, Divider, Paper, TextField, Button, Link } from "@material-ui/core";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import PropTypes from "prop-types";
+import Swal from "sweetalert2";
+import authStyles from "../assests/jss/authStyles";
+import { register, signin } from "../redux/actions/userActions";
 
-const useStyles = makeStyles((theme) => authStyles(theme))
+const useStyles = makeStyles((theme) => authStyles(theme));
 
 const Auth = () => {
-  const classes = useStyles()
-  const dispatch = useDispatch()
-  const history = useHistory()
-  const [isLogIn, setLogIn] = useState(true)
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const [isLogIn, setLogIn] = useState(true);
   const [error, setError] = useState({
-    username: '',
-    email: '',
-    password: '',
-    password2: '',
-    first_name: '',
-    last_name: '',
-  })
+    username: "",
+    email: "",
+    password: "",
+    password2: "",
+    first_name: "",
+    last_name: ""
+  });
   const [user, setUser] = useState({
-    username: '',
-    email: '',
-    password: '',
-    password2: '',
-    first_name: '',
-    last_name: '',
-  })
+    username: "",
+    email: "",
+    password: "",
+    password2: "",
+    first_name: "",
+    last_name: ""
+  });
 
-  const isAuth = useSelector((state) => state.auth.isAuth)
+  const isAuth = useSelector((state) => state.auth.isAuth);
 
   useEffect(() => {
-    if (isAuth) history.push('/')
-  }, [isAuth])
+    if (isAuth) history.push("/");
+  }, [isAuth]);
 
   const handleFormSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (isLogIn) {
-      dispatch(signin({ email: user.email, password: user.password }))
+      dispatch(signin({ email: user.email, password: user.password }));
     } else {
       dispatch(
         register({
@@ -57,13 +49,13 @@ const Auth = () => {
           last_name: user.last_name,
           username: user.username,
           email: user.email,
-          password: user.password,
+          password: user.password
         })
-      )
+      );
     }
-  }
+  };
 
-  const errors = useSelector((state) => state.auth.error)
+  const errors = useSelector((state) => state.auth.error);
   useEffect(() => {
     setError((state) => ({
       ...state,
@@ -72,50 +64,45 @@ const Auth = () => {
       password: errors?.password?.length && errors.password[0],
       password2: errors?.password?.length && errors.password[0],
       first_name: errors?.first_name?.length && errors.first_name[0],
-      last_name: errors?.last_name?.length && errors.last_name[0],
-    }))
-  }, [errors])
+      last_name: errors?.last_name?.length && errors.last_name[0]
+    }));
+  }, [errors]);
 
-  const errorDetail = useSelector((state) => state.auth.error?.error)
-  const message = useSelector((state) => state.auth?.message)
+  const errorDetail = useSelector((state) => state.auth.error?.error);
+  const message = useSelector((state) => state.auth?.message);
 
   useEffect(() => {
     if (errorDetail) {
       Swal.fire({
-        icon: 'error',
+        icon: "error",
         title: errorDetail,
         showConfirmButton: false,
-        timer: 1500,
-      })
+        timer: 1500
+      });
     } else if (message) {
       Swal.fire({
-        icon: 'success',
+        icon: "success",
         title: message,
         showConfirmButton: false,
-        timer: 1500,
-      })
-      document.location.href = '/auth'
+        timer: 1500
+      });
+      document.location.href = "/auth";
     }
-  }, [errorDetail, message])
+  }, [errorDetail, message]);
 
   return (
     <div className={classes.root}>
       {/* <Appbar /> */}
-      <Grid
-        container
-        justifyContent="center"
-        alignItems="center"
-        className={classes.root}
-      >
+      <Grid container justifyContent="center" alignItems="center" className={classes.root}>
         <Grid item align="center" xs={12} sm={7} md={4}>
           <Typography variant="h4" component="h1">
-            {isLogIn ? 'WELCOME BACK' : 'WELCOME'}
+            {isLogIn ? "WELCOME BACK" : "WELCOME"}
           </Typography>
           <Paper elevation={10} className={classes.container}>
             <Grid container spacing={2}>
               <Grid item align="center" xs={12}>
                 <Typography variant="h5" component="h2" align="center">
-                  {isLogIn ? 'Log In' : 'Sign Up'}
+                  {isLogIn ? "Log In" : "Sign Up"}
                 </Typography>
               </Grid>
               {!isLogIn && (
@@ -133,7 +120,7 @@ const Auth = () => {
                       onChange={(e) =>
                         setUser((state) => ({
                           ...state,
-                          first_name: e.target.value,
+                          first_name: e.target.value
                         }))
                       }
                     />
@@ -151,7 +138,7 @@ const Auth = () => {
                       onChange={(e) =>
                         setUser((state) => ({
                           ...state,
-                          last_name: e.target.value,
+                          last_name: e.target.value
                         }))
                       }
                     />
@@ -169,7 +156,7 @@ const Auth = () => {
                       onChange={(e) =>
                         setUser((state) => ({
                           ...state,
-                          username: e.target.value,
+                          username: e.target.value
                         }))
                       }
                     />
@@ -189,7 +176,7 @@ const Auth = () => {
                   onChange={(e) =>
                     setUser((state) => ({
                       ...state,
-                      email: e.target.value,
+                      email: e.target.value
                     }))
                   }
                 />
@@ -205,9 +192,7 @@ const Auth = () => {
                   required
                   variant="outlined"
                   value={user.password}
-                  onChange={(e) =>
-                    setUser((state) => ({ ...state, password: e.target.value }))
-                  }
+                  onChange={(e) => setUser((state) => ({ ...state, password: e.target.value }))}
                 />
               </Grid>
               {!isLogIn && (
@@ -224,7 +209,7 @@ const Auth = () => {
                     onChange={(e) =>
                       setUser((state) => ({
                         ...state,
-                        password2: e.target.value,
+                        password2: e.target.value
                       }))
                     }
                   />
@@ -239,7 +224,7 @@ const Auth = () => {
                   fullWidth
                   onClick={(e) => handleFormSubmit(e)}
                 >
-                  {isLogIn ? 'Log In' : 'Sign Up'}
+                  {isLogIn ? "Log In" : "Sign Up"}
                 </Button>
               </Grid>
               <Grid item xs={12}>
@@ -250,13 +235,8 @@ const Auth = () => {
                     </Link>
                   </Grid>
                   <Grid item className={classes.link}>
-                    <Typography
-                      variant="body2"
-                      onClick={() => setLogIn((state) => !state)}
-                    >
-                      {isLogIn
-                        ? "Don't have an account?"
-                        : 'Already have an account?'}
+                    <Typography variant="body2" onClick={() => setLogIn((state) => !state)}>
+                      {isLogIn ? "Don't have an account?" : "Already have an account?"}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -283,15 +263,15 @@ const Auth = () => {
         </Grid>
       </Grid>
     </div>
-  )
-}
+  );
+};
 
 const mapStateToProps = (state) => ({
-  isAuth: state.auth.isAuth,
-})
+  isAuth: state.auth.isAuth
+});
 
 Auth.propTypes = {
-  isAuth: PropTypes.bool.isRequired,
-}
+  isAuth: PropTypes.bool.isRequired
+};
 
-export default connect(mapStateToProps)(Auth)
+export default connect(mapStateToProps)(Auth);

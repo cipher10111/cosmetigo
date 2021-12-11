@@ -1,11 +1,11 @@
-const path = require('path')
-const webpack = require('webpack')
+const path = require("path");
+const webpack = require("webpack");
 
 module.exports = {
-  entry: './src/index.js',
+  entry: "./src/index.js",
   output: {
-    path: path.resolve(__dirname, './static/frontend'),
-    filename: '[name].js',
+    path: path.resolve(__dirname, "./static/frontend"),
+    filename: "[name].js"
   },
   module: {
     rules: [
@@ -13,25 +13,25 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
-        },
-      },
-    ],
+          loader: "babel-loader"
+        }
+      }
+    ]
   },
   optimization: {
-    minimize: true,
+    minimize: true
   },
   stats: {
     colors: true,
     modules: true,
     reasons: true,
-    errorDetails: true,
+    errorDetails: true
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('development'),
-      },
-    }),
-  ],
-}
+      "process.env": {
+        NODE_ENV: JSON.stringify("development")
+      }
+    })
+  ]
+};
