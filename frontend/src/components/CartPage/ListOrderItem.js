@@ -72,14 +72,7 @@ function ListOrderItem() {
             md={12}
             sm={12}
             xs={12}
-          >
-            <Button variant="outlined" color="primary">
-              Back
-            </Button>
-            <Button variant="contained" color="secondary">
-              Checkout
-            </Button>
-          </Box>
+          ></Box>
         </Grid>
       </Grid>
     </Container>

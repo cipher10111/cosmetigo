@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     '& > *': {
       margin: theme.spacing(1),
-      width: '25ch',
+      width: '20ch',
     },
   },
 
@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
 
 function OrderDetailPage() {
   const classes = useStyles()
+  const [isShippingbillingsame, setisShippingbillingsame] = useState(false)
 
   return (
     <Container className={classes.marginTopClass}>
@@ -74,6 +75,7 @@ function OrderDetailPage() {
                     id="outlined-basic"
                     label="Full Name"
                     variant="outlined"
+                    size="small"
                   />
                 </Box>
                 <Box mt={2} component={Grid} item lg={6} md={6} xs={12} sm={12}>
@@ -82,6 +84,7 @@ function OrderDetailPage() {
                     id="outlined-basic"
                     label="Email Address"
                     variant="outlined"
+                    size="small"
                   />
                 </Box>
                 <Box mt={2} component={Grid} item lg={6} md={6} xs={12} sm={12}>
@@ -89,6 +92,7 @@ function OrderDetailPage() {
                     id="outlined-basic"
                     label="Phone Number"
                     variant="outlined"
+                    size="small"
                   />
                 </Box>
                 <Box mt={2} component={Grid} item lg={6} md={6} xs={12} sm={12}>
@@ -96,6 +100,7 @@ function OrderDetailPage() {
                     id="outlined-basic"
                     label="Company"
                     variant="outlined"
+                    size="small"
                   />
                 </Box>
                 <Box mt={2} component={Grid} item lg={6} md={6} xs={12} sm={12}>
@@ -103,6 +108,7 @@ function OrderDetailPage() {
                     id="outlined-basic"
                     label="Zip Code"
                     variant="outlined"
+                    size="small"
                   />
                 </Box>
                 <Box mt={2} component={Grid} item lg={6} md={6} xs={12} sm={12}>
@@ -110,6 +116,7 @@ function OrderDetailPage() {
                     id="outlined-basic"
                     label="Country"
                     variant="outlined"
+                    size="small"
                   />
                 </Box>
                 <Box mt={2} component={Grid} item lg={6} md={6} xs={12} sm={12}>
@@ -117,6 +124,7 @@ function OrderDetailPage() {
                     id="outlined-basic"
                     label="Address 1"
                     variant="outlined"
+                    size="small"
                   />
                 </Box>
                 <Box mt={2} component={Grid} item lg={6} md={6} xs={12} sm={12}>
@@ -124,143 +132,157 @@ function OrderDetailPage() {
                     id="outlined-basic"
                     label="Address 2"
                     variant="outlined"
+                    size="small"
                   />
                 </Box>
               </Grid>
             </form>
             <p mt={2}>Billing Address:</p>
-            <Checkbox inputProps={{ 'aria-label': 'primary checkbox' }} /> Same
-            as Shipping Address
-            <Grid container spacing={2} align="center">
-              <form noValidate autoComplete="off">
-                <Grid container spacing={2} align="center">
-                  <Box
-                    mt={2}
-                    component={Grid}
-                    item
-                    lg={6}
-                    md={6}
-                    xs={12}
-                    sm={12}
-                  >
-                    <TextField
-                      id="outlined-basic"
-                      label="Full Name"
-                      variant="outlined"
-                    />
-                  </Box>
+            <Checkbox
+              onClick={() => setisShippingbillingsame(true)}
+              inputProps={{ 'aria-label': 'primary checkbox' }}
+            />{' '}
+            Same as Shipping Address
+            {isShippingbillingsame || (
+              <Grid container spacing={2} align="center">
+                <form noValidate autoComplete="off">
+                  <Grid container spacing={2} align="center">
+                    <Box
+                      mt={2}
+                      component={Grid}
+                      item
+                      lg={6}
+                      md={6}
+                      xs={12}
+                      sm={12}
+                    >
+                      <TextField
+                        id="outlined-basic"
+                        label="Full Name"
+                        variant="outlined"
+                        size="small"
+                      />
+                    </Box>
 
-                  <Box
-                    mt={2}
-                    component={Grid}
-                    item
-                    lg={6}
-                    md={6}
-                    xs={12}
-                    sm={12}
-                  >
-                    <TextField
-                      id="outlined-basic"
-                      label="Email Address"
-                      variant="outlined"
-                    />
-                  </Box>
-                  <Box
-                    mt={2}
-                    component={Grid}
-                    item
-                    lg={6}
-                    md={6}
-                    xs={12}
-                    sm={12}
-                  >
-                    <TextField
-                      id="outlined-basic"
-                      label="Phone Number"
-                      variant="outlined"
-                    />
-                  </Box>
+                    <Box
+                      mt={2}
+                      component={Grid}
+                      item
+                      lg={6}
+                      md={6}
+                      xs={12}
+                      sm={12}
+                    >
+                      <TextField
+                        id="outlined-basic"
+                        label="Email Address"
+                        variant="outlined"
+                        size="small"
+                      />
+                    </Box>
+                    <Box
+                      mt={2}
+                      component={Grid}
+                      item
+                      lg={6}
+                      md={6}
+                      xs={12}
+                      sm={12}
+                    >
+                      <TextField
+                        id="outlined-basic"
+                        label="Phone Number"
+                        variant="outlined"
+                        size="small"
+                      />
+                    </Box>
 
-                  <Box
-                    mt={2}
-                    component={Grid}
-                    item
-                    lg={6}
-                    md={6}
-                    xs={12}
-                    sm={12}
-                  >
-                    <TextField
-                      id="outlined-basic"
-                      label="Company"
-                      variant="outlined"
-                    />
-                  </Box>
-                  <Box
-                    mt={2}
-                    component={Grid}
-                    item
-                    lg={6}
-                    md={6}
-                    xs={12}
-                    sm={12}
-                  >
-                    <TextField
-                      id="outlined-basic"
-                      label="Zip Code"
-                      variant="outlined"
-                    />
-                  </Box>
+                    <Box
+                      mt={2}
+                      component={Grid}
+                      item
+                      lg={6}
+                      md={6}
+                      xs={12}
+                      sm={12}
+                    >
+                      <TextField
+                        id="outlined-basic"
+                        label="Company"
+                        variant="outlined"
+                        size="small"
+                      />
+                    </Box>
+                    <Box
+                      mt={2}
+                      component={Grid}
+                      item
+                      lg={6}
+                      md={6}
+                      xs={12}
+                      sm={12}
+                    >
+                      <TextField
+                        id="outlined-basic"
+                        label="Zip Code"
+                        variant="outlined"
+                        size="small"
+                      />
+                    </Box>
 
-                  <Box
-                    mt={2}
-                    component={Grid}
-                    item
-                    lg={6}
-                    md={6}
-                    xs={12}
-                    sm={12}
-                  >
-                    <TextField
-                      id="outlined-basic"
-                      label="Country"
-                      variant="outlined"
-                    />
-                  </Box>
-                  <Box
-                    mt={2}
-                    component={Grid}
-                    item
-                    lg={6}
-                    md={6}
-                    xs={12}
-                    sm={12}
-                  >
-                    <TextField
-                      id="outlined-basic"
-                      label="Address 1"
-                      variant="outlined"
-                    />
-                  </Box>
+                    <Box
+                      mt={2}
+                      component={Grid}
+                      item
+                      lg={6}
+                      md={6}
+                      xs={12}
+                      sm={12}
+                    >
+                      <TextField
+                        id="outlined-basic"
+                        label="Country"
+                        variant="outlined"
+                        size="small"
+                      />
+                    </Box>
+                    <Box
+                      mt={2}
+                      component={Grid}
+                      item
+                      lg={6}
+                      md={6}
+                      xs={12}
+                      sm={12}
+                    >
+                      <TextField
+                        id="outlined-basic"
+                        label="Address 1"
+                        variant="outlined"
+                        size="small"
+                      />
+                    </Box>
 
-                  <Box
-                    mt={2}
-                    component={Grid}
-                    item
-                    lg={6}
-                    md={6}
-                    xs={12}
-                    sm={12}
-                  >
-                    <TextField
-                      id="outlined-basic"
-                      label="Address 2"
-                      variant="outlined"
-                    />
-                  </Box>
-                </Grid>
-              </form>
-            </Grid>
+                    <Box
+                      mt={2}
+                      component={Grid}
+                      item
+                      lg={6}
+                      md={6}
+                      xs={12}
+                      sm={12}
+                    >
+                      <TextField
+                        id="outlined-basic"
+                        label="Address 2"
+                        variant="outlined"
+                        size="small"
+                      />
+                    </Box>
+                  </Grid>
+                </form>
+              </Grid>
+            )}
           </Grid>
           <Grid item xl={4} lg={4} md={12} sm={12} xs={12} align={'left'}>
             <OrderSummary />
@@ -274,12 +296,7 @@ function OrderDetailPage() {
             sm={12}
             xs={12}
           >
-            <Button variant="outlined" color="primary">
-              Back to Cart
-            </Button>
-            <Button variant="contained" color="secondary">
-              Proceed to Checkout
-            </Button>
+            {' '}
           </Grid>
         </Grid>
       </Grid>
