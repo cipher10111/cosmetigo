@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'frontend.apps.FrontendConfig',
     'accounts.apps.AccountsConfig',
-    'recommender.apps.RecommenderConfig',
     'products.apps.ProductsConfig'
 ]
 
