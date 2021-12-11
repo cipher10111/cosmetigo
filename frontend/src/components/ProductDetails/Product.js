@@ -1,6 +1,5 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Rating from "@material-ui/lab/Rating";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
@@ -9,14 +8,15 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles({
   root: {
-    width: "280px",
-    height: "450px"
+    width: "250px",
+    margin: "1rem"
   },
   media: {
-    height: "300px"
+    height: 200
   },
   grow: {
     display: "flex",
@@ -25,32 +25,25 @@ const useStyles = makeStyles({
   }
 });
 
-export default function ProductCard(props) {
+const Product = ({ img, title, quant, amount }) => {
   const classes = useStyles();
 
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        <CardMedia className={classes.media} image={props.img} title="Contemplative Reptile" />
-        <CardContent align="center">
-          <Typography gutterBottom variant="p" component="h3">
-            {props.title}
+        <CardMedia className={classes.media} image={img} title="Contemplative Reptile" />
+        <CardContent>
+          <Typography gutterBottom component="h3">
+            {title}
           </Typography>
-
-          <Typography gutterBottom variant="p" component="p">
-            <Rating
-              name="read-only"
-              defaultValue={props.rating}
-              precision={0.5}
-              size="small"
-              readOnly
-            />
+          <Typography gutterBottom component="p">
+            {quant}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.grow}>
-        <Typography gutterBottom variant="p" component="p">
-          ₹ {props.amount}
+        <Typography gutterBottom component="p">
+          ₹ {amount}
         </Typography>
         <Button size="small" color="secondary">
           <AddShoppingCartIcon />
@@ -58,4 +51,13 @@ export default function ProductCard(props) {
       </CardActions>
     </Card>
   );
-}
+};
+
+Product.propTypes = {
+  img: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  quant: PropTypes.string.isRequired,
+  amount: PropTypes.string.isRequired
+};
+
+export default Product;

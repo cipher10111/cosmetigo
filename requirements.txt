@@ -4,9 +4,6 @@ django-debug-toolbar==3.2.2
 django-rest-knox==4.1.0
 djangorestframework==3.12.4
 djangorestframework-simplejwt==5.0.0
-numpy==1.19.2
 Pillow==8.4.0
 protobuf==3.19.1
 psycopg2==2.9.2
-scikit-learn==1.0.1
-tensorflow==2.6.1

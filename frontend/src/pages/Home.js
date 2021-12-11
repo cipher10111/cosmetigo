@@ -1,41 +1,31 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useState, useEffect } from 'react'
-import {
-  Box,
-  Grid,
-  Button,
-  Card,
-  Container,
-  Typography,
-  Link,
-} from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import { useDispatch, useSelector } from 'react-redux'
-import ProductCard from '../components/Home/ProductCard'
-import Product from '../components/Home/Products'
-import items from './items'
-import brandTypes from './brandTypes'
-import itemTypes from './itemTypes'
-import homeStyles from '../assests/jss/homeStyles'
-import { fetchNewProduct } from '../redux/actions/productActions'
+import React, { useState, useEffect } from "react";
+import { Box, Grid, Button, Card, Container, Typography, Link } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { useDispatch, useSelector } from "react-redux";
+import ProductCard from "../components/Home/ProductCard";
+import Product from "../components/Home/Products";
+import items from "./items";
+import brandTypes from "./brandTypes";
+import itemTypes from "./itemTypes";
+import homeStyles from "../assests/jss/homeStyles";
+import { fetchNewProduct } from "../redux/actions/productActions";
 
-const useStyles = makeStyles((theme) => homeStyles(theme))
+const useStyles = makeStyles((theme) => homeStyles(theme));
 
 const Home = () => {
-  const classes = useStyles()
-  const dispatch = useDispatch()
-  const { newProducts, error, isLoading } = useSelector(
-    (state) => state.products
-  )
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  const { newProducts, error, isLoading } = useSelector((state) => state.products);
 
-  console.log(newProducts)
+  console.log(newProducts);
 
   useEffect(() => {
-    dispatch(fetchNewProduct(8))
-  }, [])
+    dispatch(fetchNewProduct(8));
+  }, []);
 
-  if (error) return <p>error...</p>
-  if (isLoading) return <p>Loading...</p>
+  if (error) return <p>error...</p>;
+  if (isLoading) return <p>Loading...</p>;
 
   return (
     <div className={classes.root}>
@@ -45,9 +35,9 @@ const Home = () => {
             <Grid className={classes.cardContent}>
               <h1 className={classes.margin}>20% off for your First shoping</h1>
               <p className={classes.margin}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco
               </p>
               <div className={classes.margin}>
                 <Button variant="contained" color="secondary" size="large">
@@ -65,11 +55,7 @@ const Home = () => {
         <Grid className={classes.itemTypesContainer}>
           {itemTypes.map((item, index) => (
             <Link key={index} href="/search" underline="none">
-              <ProductCard
-                subtitle={item.subtitle}
-                img={item.img}
-                title={item.title}
-              />
+              <ProductCard subtitle={item.subtitle} img={item.img} title={item.title} />
             </Link>
           ))}
         </Grid>
@@ -83,11 +69,7 @@ const Home = () => {
           <Box className={classes.newProductContainer}>
             {newProducts.map((item, index) => (
               <Link key={index} href="/product" underline="none">
-                <Product
-                  img={item.link}
-                  title={item.display_name}
-                  price={item.price}
-                />
+                <Product img={item.link} title={item.display_name} price={item.price} />
               </Link>
             ))}
           </Box>
@@ -108,7 +90,7 @@ const Home = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

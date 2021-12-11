@@ -5,7 +5,7 @@ import Auth from "./pages/Auth";
 import { checkAuth } from "./redux/actions/userActions";
 import SearchResult from "./pages/SearchResult";
 import Home from "./pages/Home";
-import Productdetails from "./pages/Productdetails";
+import Productdetails from "./pages/ProductDetails";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import MyAccount from "./pages/MyAccount";
